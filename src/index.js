@@ -1,14 +1,15 @@
 // import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Child from './App';
+import Form from './UserForm'
+// import CreateUser from './CreateUser';
 
 const root = ReactDOM.createRoot(document.getElementById('main'));
 
 const Parent = () => {
-  return <Child />
+  return <Form />
 }
 
-root.render(<Child/>)
+root.render(<Form/>)
 
 
 
