@@ -1,16 +1,18 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import './App.css';
 
-const CreateUser = () => {
+
+const CreateUser = (props) => {
 
 
 
   return (
+      
       <div className="bg-primary container row justify-content-around mx-auto">
-        <img className="col-4 border" alt="Loading..." />
+        <img className="col-4 border" alt="Loading..."/>
         <div className='col-4 border'>
-          <span >Loading...</span>
-          <p>Loading...</p>
+          <span >{props.userName}</span>
+          <p>{props.favoriteMovie}</p>
         </div>
       </div>
   );
