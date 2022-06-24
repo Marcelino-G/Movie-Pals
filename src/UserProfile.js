@@ -1,15 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 
 
-const CreateUser = (props) => {
+const UserProfile = (props) => {
 
-
-
+  
   return (
       
       <div className="bg-primary container row justify-content-around mx-auto">
-        <img className="col-4 border" alt="Loading..."/>
+        <img className="col-4 border" alt="Loading..." src={props.favoriteMovieIMG}/>
         <div className='col-4 border'>
           <span >{props.userName}</span>
           <p>{props.favoriteMovie}</p>
@@ -18,4 +17,4 @@ const CreateUser = (props) => {
   );
 }
 
-export default CreateUser;
+export default UserProfile;
