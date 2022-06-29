@@ -14,16 +14,22 @@ const UserProfile = (props) => {
         </div>
       </main>
       <form onSubmit={props.onSubmit}>
-        <input type="text" id='search' onChange={props.onChange}></input>
+        <input type="search" id='search' onChange={props.onChange}></input>
         <input type="submit"></input>
       </form>
+      <div id="searchContainer" className=''>
+        <button onClick={props.onClick}>ADD</button>
+        <img src={props.searchedMovieImg} />
+          {props.searchedMovieTitle}
+          {props.searchedMovieDate}
+      </div>
       <section>
-        <ul>
-          <li>
-            <img src={props.addMovieImg} />
-            {props.addMovieTitle}
-            {props.addMovieDate}
-          </li>
+        <ul id='addContainer'>
+          {/* <li>
+          <img src={props.addedMovieImg} />
+          {props.addedMovieTitle}
+          {props.addedMovieDate}
+          </li> */}
         </ul>
       </section>
     </div>

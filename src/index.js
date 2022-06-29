@@ -5,6 +5,8 @@ import Form from './Form'
 
 const main = ReactDOM.createRoot(document.getElementById('main'));
 
+
+
 const Parent = () => {
 
   
@@ -23,6 +25,11 @@ const Parent = () => {
     movie_date: "",
     movie_img: "#"
   })
+  const [searchedMovie, setSearchedMovie] = useState({
+    movie_title: "",
+    movie_date: "",
+    movie_img: "#"
+  })
 
   const [searchMovie, setSearchMovie] = useState("#")
   const [movieDisplay, setMovieDisplay] = useState("#")
@@ -32,7 +39,7 @@ const Parent = () => {
     const fetchh = async (x, y, z) => {
       let response = await fetch(`https://imdb-api.com/en/API/SearchMovie/${userInfo['api_key']}/${x}`) 
       let json = await response.json()
-      console.log(json)
+      // console.log(json)
       y(() => ({
         ...z, 
         movie_title: json['results'][0]['title'],
@@ -46,9 +53,31 @@ const Parent = () => {
     }
 
     if (searchMovie !== "#"){
-      fetchh(searchMovie, setAddMovie, addMovie)
+      fetchh(searchMovie, setSearchedMovie, searchedMovie)
+      
     }
-  }, [userInfo['favorite_movie'], searchMovie])
+
+    
+    if (addMovie['movie_title'] !== ""){
+
+      const addContainer = document.getElementById("addContainer")
+
+      const liContent = (<li>
+        <img src={addMovie['movie_img']}/>
+      </li>)
+
+      const liElement = React.createElement("li", {}, liContent)
+
+      console.log(addMovie)
+      addContainer.append(liElement)
+
+
+
+    }
+    
+    
+    
+  }, [userInfo['favorite_movie'], searchMovie, addMovie])
 
   const handleChange = (e) => {
 
@@ -81,8 +110,14 @@ const Parent = () => {
     setSearchMovie(search)
   }
 
-  
-
+  const handleClickAdd = () => {    
+    setAddMovie({
+        ...addMovie,
+        movie_title: searchedMovie['movie_title'],
+        movie_date: searchedMovie['movie_date'],
+        movie_img: searchedMovie['movie_img'], 
+    })
+  }
 
   return (
     <div>
@@ -94,9 +129,13 @@ const Parent = () => {
       favoriteMovieImg={favoriteMovie['movie_img']} 
       favoriteMovieDate={favoriteMovie['movie_date']}
       onSubmit={handleSearchSubmit}
-      addMovieImg={addMovie['movie_img']}
-      addMovieTitle={addMovie['movie_title']}
-      addMovieDate={addMovie['movie_date']}
+      searchedMovieImg={searchedMovie['movie_img']}
+      searchedMovieTitle={searchedMovie['movie_title']}
+      searchedMovieDate={searchedMovie['movie_date']}
+      onClick={handleClickAdd}
+      // addedMovieImg={addMovie['movie_img']}
+      // addedMovieTitle={addMovie['movie_title']}
+      // addedMovieDate={addMovie['movie_date']}
       /> 
       : 
       <Form 
