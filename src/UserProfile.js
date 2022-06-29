@@ -14,7 +14,7 @@ const UserProfile = (props) => {
         </div>
       </main>
       <form onSubmit={props.onSubmit}>
-        <input type="search" id='search' onChange={props.onChange}></input>
+        <input type="search" id='search' onChange={props.onChangeSearchInfo}></input>
         <input type="submit"></input>
       </form>
       <div id="searchContainer" className=''>
@@ -25,11 +25,14 @@ const UserProfile = (props) => {
       </div>
       <section>
         <ul id='addContainer'>
-          {/* <li>
-          <img src={props.addedMovieImg} />
-          {props.addedMovieTitle}
-          {props.addedMovieDate}
-          </li> */}
+          {props.addMovie.map((item) => (
+            <li key={item["movie_id"]}>
+              <img src={item['movie_img']}/>
+              <span>{item['movie_title']}</span>
+              <span>{item['movie_date']}</span>
+              </li>
+          )
+          )}
         </ul>
       </section>
     </div>

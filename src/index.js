@@ -9,7 +9,6 @@ const main = ReactDOM.createRoot(document.getElementById('main'));
 
 const Parent = () => {
 
-  
   const [userInfo, setUserInfo] = useState({
     user_name: "",
     favorite_movie: "",
@@ -20,69 +19,59 @@ const Parent = () => {
     movie_date: "",
     movie_img: "#"
   });
-  const [addMovie, setAddMovie] = useState({
-    movie_title: "",
-    movie_date: "",
-    movie_img: "#"
-  })
   const [searchedMovie, setSearchedMovie] = useState({
     movie_title: "",
     movie_date: "",
-    movie_img: "#"
+    movie_img: "#",
+    movie_id: ""
   })
+  const [addMovie, setAddMovie] = useState([{
+    movie_title: "",
+    movie_date: "",
+    movie_img: "#",
+    movie_id: ""
+  }])
+  
 
   const [searchMovie, setSearchMovie] = useState("#")
-  const [movieDisplay, setMovieDisplay] = useState("#")
+  const [formTrigger, setFormTrigger] = useState(false);
+  const [searchTrigger, setSearchTrigger] = useState(false)
 
   useEffect(() => {
 
-    const fetchh = async (x, y, z) => {
+    const fetchh = async (x, y) => {
       let response = await fetch(`https://imdb-api.com/en/API/SearchMovie/${userInfo['api_key']}/${x}`) 
       let json = await response.json()
       // console.log(json)
       y(() => ({
-        ...z, 
         movie_title: json['results'][0]['title'],
         movie_date: json['results'][0]['description'],
-        movie_img: json['results'][0]['image']
+        movie_img: json['results'][0]['image'],
+        movie_id: json['results'][0]["id"]
       }))
+      
+      setSearchTrigger(false)
+      
     }
 
-    if(userInfo['favorite_movie'] !== ""){
-      fetchh(userInfo['favorite_movie'], setFavoriteMovie, favoriteMovie);
+    if(formTrigger === true){
+      fetchh(userInfo['favorite_movie'], setFavoriteMovie);
     }
 
-    if (searchMovie !== "#"){
-      fetchh(searchMovie, setSearchedMovie, searchedMovie)
+    if (searchTrigger === true){
+      fetchh(searchMovie, setSearchedMovie)
       
     }
 
     
-    if (addMovie['movie_title'] !== ""){
-
-      const addContainer = document.getElementById("addContainer")
-
-      const liContent = (<li>
-        <img src={addMovie['movie_img']}/>
-      </li>)
-
-      const liElement = React.createElement("li", {}, liContent)
-
-      console.log(addMovie)
-      addContainer.append(liElement)
-
-
-
-    }
     
     
-    
-  }, [userInfo['favorite_movie'], searchMovie, addMovie])
+  }, [formTrigger, searchTrigger])
 
-  const handleChange = (e) => {
+  const handleChangeUserInfo = (e) => {
 
     if (e.target.id === "user_name"){
-       return setUserInfo({
+        setUserInfo({
           ...userInfo,
           user_name: e.target.value
       })
@@ -91,38 +80,45 @@ const Parent = () => {
           ...userInfo,
           api_key: e.target.value
       })
+    } else if (e.target.id === "favorite_movie"){
+        setUserInfo({
+          ...userInfo,
+          favorite_movie: e.target.value
+        })
     }
   }
 
-  const handleFormSubmit = (e) => {
+  const handleChangeSearchInfo = (e) => {
+    setSearchMovie(e.target.value)
+  }
 
+  const handleFormSubmit = (e) => {
     e.preventDefault();
-    const favMovie = document.getElementById("favorite_movie").value
-      setUserInfo({
-          ...userInfo,
-          favorite_movie: favMovie
-    })
+    setFormTrigger(true)
   }
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
-    const search = document.getElementById("search").value
-    setSearchMovie(search)
+    setSearchTrigger(true)
   }
 
   const handleClickAdd = () => {    
-    setAddMovie({
-        ...addMovie,
+    setAddMovie(prev => {
+      return [...prev,
+        {
         movie_title: searchedMovie['movie_title'],
         movie_date: searchedMovie['movie_date'],
         movie_img: searchedMovie['movie_img'], 
-    })
+        movie_id: searchedMovie['movie_id']      
+      }]
+    }
+   )
   }
 
   return (
     <div>
       {
-      userInfo['favorite_movie'] !== "" ? 
+      formTrigger === true ? 
       <UserProfile 
       userName={userInfo["user_name"]} 
       favoriteMovieTitle={favoriteMovie['movie_title']} 
@@ -133,13 +129,12 @@ const Parent = () => {
       searchedMovieTitle={searchedMovie['movie_title']}
       searchedMovieDate={searchedMovie['movie_date']}
       onClick={handleClickAdd}
-      // addedMovieImg={addMovie['movie_img']}
-      // addedMovieTitle={addMovie['movie_title']}
-      // addedMovieDate={addMovie['movie_date']}
+      addMovie={addMovie}
+      onChangeSearchInfo={handleChangeSearchInfo}
       /> 
       : 
       <Form 
-      onChange={handleChange} 
+      onChangeUserInfo={handleChangeUserInfo} 
       value={userInfo} 
       onSubmit={handleFormSubmit}
       /> 
