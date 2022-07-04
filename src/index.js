@@ -116,7 +116,7 @@ const Parent = () => {
   }
 
   return (
-    <div>
+    <div className='container border border-3 border-danger h-100'>
       {
       formTrigger === true ? 
       <UserProfile 
