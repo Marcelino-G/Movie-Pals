@@ -13,6 +13,7 @@ const Parent = () => {
     user_name: "",
     favorite_movie: "",
     api_key: "",
+    profile_picture: ""
   })
   const [favoriteMovie, setFavoriteMovie] = useState({
     movie_title: "",
@@ -85,6 +86,12 @@ const Parent = () => {
           ...userInfo,
           favorite_movie: e.target.value
         })
+    } else if (e.target.id === "profile_picture"){
+      const pictureFile = URL.createObjectURL(e.target.files[0])
+      setUserInfo({
+        ...userInfo,
+        profile_picture: pictureFile
+      })
     }
   }
 
@@ -117,9 +124,9 @@ const Parent = () => {
 
   return (
     <div className='container border border-3 border-danger h-100'>
-      {
-      formTrigger === true ? 
+      {formTrigger === true ? 
       <UserProfile 
+      profilePicture={userInfo['profile_picture']}
       userName={userInfo["user_name"]} 
       favoriteMovieTitle={favoriteMovie['movie_title']} 
       favoriteMovieImg={favoriteMovie['movie_img']} 
