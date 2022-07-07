@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react';
 import './App.css';
+import friend_pic from './friend_pic.png'
 
 const UserProfile = (props) => {
 
@@ -8,7 +9,7 @@ const UserProfile = (props) => {
 
       <section className='col-7 row justify-content-start border my-1'>
         <span className='border col-12 fs-3'>{props.userName}</span>
-        <img className='border col-7 img-fluid' src={props.profilePicture}/>
+        <img className='border col-7 img-fluid' src={props.profilePicture === ""? friend_pic : props.profilePicture}/>
         <section className='col-5 row justify-content-center border'>
           <span className='col-12 text-center border mt-4' >Favorite Movie</span>
           <img className="col-8 img-fluid border" alt="Loading..." src={props.favoriteMovieImg}/>
@@ -49,8 +50,7 @@ const UserProfile = (props) => {
               <img className='col-9 img-fluid border' src={item['movie_img']}/>
               <span className='text-center' >{item['movie_title']}</span>
               <span className='text-center'>{item['movie_date']}</span>
-              </li>
-          )
+              </li>)
           )}
         </ul>
       </section>

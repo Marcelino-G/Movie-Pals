@@ -5,8 +5,6 @@ import Form from './Form'
 
 const main = ReactDOM.createRoot(document.getElementById('main'));
 
-
-
 const Parent = () => {
 
   const [userInfo, setUserInfo] = useState({
@@ -26,48 +24,48 @@ const Parent = () => {
     movie_img: "#",
     movie_id: ""
   })
-  const [addMovie, setAddMovie] = useState([{
-    movie_title: "",
-    movie_date: "",
-    movie_img: "#",
-    movie_id: ""
-  }])
+  const [addMovie, setAddMovie] = useState([])
   
-
   const [searchMovie, setSearchMovie] = useState("#")
   const [formTrigger, setFormTrigger] = useState(false);
   const [searchTrigger, setSearchTrigger] = useState(false)
 
   useEffect(() => {
 
-    const fetchh = async (x, y) => {
-      let response = await fetch(`https://imdb-api.com/en/API/SearchMovie/${userInfo['api_key']}/${x}`) 
-      let json = await response.json()
-      // console.log(json)
-      y(() => ({
-        movie_title: json['results'][0]['title'],
-        movie_date: json['results'][0]['description'],
-        movie_img: json['results'][0]['image'],
-        movie_id: json['results'][0]["id"]
-      }))
-      
-      setSearchTrigger(false)
-      
-    }
-
-    if(formTrigger === true){
-      fetchh(userInfo['favorite_movie'], setFavoriteMovie);
-    }
-
     if (searchTrigger === true){
       fetchh(searchMovie, setSearchedMovie)
-      
-    }
-
-    
-    
-    
+      return
+    }  
   }, [formTrigger, searchTrigger])
+
+  const fetchh = async (x, y) => {
+
+    try {
+
+      let response = await fetch(`https://imdb-api.com/en/API/SearchMovie/${userInfo['api_key']}/${x}`) 
+      let json = await response.json()
+      console.log(json)
+
+      if (json['results'] === null){
+        throw new Error(`${json['errorMessage']}. Try again tomorrow.`)
+      } else if (json['results'].length === 0 ) {
+          throw new Error('Film could not be found. Please check spelling for "Favorite Movie".')
+        } else {
+
+            y(() => ({
+              movie_title: json['results'][0]['title'],
+              movie_date: json['results'][0]['description'],
+              movie_img: json['results'][0]['image'],
+              movie_id: json['results'][0]["id"]
+            }))
+            setSearchTrigger(false)
+          }
+
+    } catch (error) {
+      
+      throw error;
+    }
+  }
 
   const handleChangeUserInfo = (e) => {
 
@@ -99,9 +97,14 @@ const Parent = () => {
     setSearchMovie(e.target.value)
   }
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setFormTrigger(true)
+    try {
+      await fetchh(userInfo['favorite_movie'], setFavoriteMovie);
+      setFormTrigger(true)
+    } catch (error) {
+      alert(error)
+    }
   }
 
   const handleSearchSubmit = (e) => {
@@ -110,16 +113,38 @@ const Parent = () => {
   }
 
   const handleClickAdd = () => {    
-    setAddMovie(prev => {
-      return [...prev,
-        {
-        movie_title: searchedMovie['movie_title'],
-        movie_date: searchedMovie['movie_date'],
-        movie_img: searchedMovie['movie_img'], 
-        movie_id: searchedMovie['movie_id']      
-      }]
+
+    try {
+
+      if(addMovie.length === 0){
+
+        setAddMovie([{
+          movie_title: searchedMovie['movie_title'],
+          movie_date: searchedMovie['movie_date'],
+          movie_img: searchedMovie['movie_img'], 
+          movie_id: searchedMovie['movie_id']  
+        }])
+      } else if(addMovie.length > 0){
+          
+          if(addMovie.find(array => array['movie_id'] === searchedMovie['movie_id'])){
+            throw new Error("Movie already added to the recommended movie list")
+          }
+  
+          setAddMovie(prev => {
+            return [...prev,
+              {
+              movie_title: searchedMovie['movie_title'],
+              movie_date: searchedMovie['movie_date'],
+              movie_img: searchedMovie['movie_img'], 
+              movie_id: searchedMovie['movie_id']      
+            }]
+          })
+        } 
+      
+    } catch (error) {
+      
+      alert(error.message)
     }
-   )
   }
 
   return (

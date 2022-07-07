@@ -14,20 +14,20 @@ const Form = (props) => {
             <form onSubmit={props.onSubmit} className="col-8 row justify-content-center">
                 <div className='col-12 row my-1'>
                     <label className='col-12'>User Name</label>
-                    <input className='col-12' type="text" id="user_name" onChange={props.onChangeUserInfo}></input>
+                    <input className='col-12' type="text" id="user_name" required onChange={props.onChangeUserInfo}></input>
                 </div>
 
                 <div className='col-12 row my-1'>
                     <label className=''>Favorite Movie</label>
-                    <input className='' type="text" id="favorite_movie" onChange={props.onChangeUserInfo}></input>
+                    <input className='' type="text" id="favorite_movie" required onChange={props.onChangeUserInfo}></input>
                 </div>
             
                 <div className='col-12 row my-1'>
                     <label className=''>IMDb-API Key</label>
-                    <input className='' type="password" id="api_key" onChange={props.onChangeUserInfo}></input>
+                    <input className='' type="password" id="api_key" required onChange={props.onChangeUserInfo}></input>
                 </div>
 
-                <div className='col- row my-1 border'>
+                <div className='col- row my-1'>
                     <label className='col-12' htmlFor="profile_picture" >Profile Picture?</label>
                     <input className='col-12' accept='image/*' type="file" id="profile_picture" onChange={props.onChangeUserInfo}></input>
                 </div>
