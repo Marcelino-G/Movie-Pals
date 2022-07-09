@@ -23,7 +23,18 @@ const Form = (props) => {
                 </div>
             
                 <div className='col-12 row my-1'>
-                    <label className=''>IMDb-API Key</label>
+                    <label className='row mx-auto'>IMDb-API Key 
+                        <details className='col-2 '>
+                            <summary >?</summary>
+                            <span className='position-absolute'>
+                                <ul className=' border border-5 bg-secondary'>
+                                    <li>Register for an IMDb-API Key <a href='https://imdb-api.com/Identity/Account/Register'>here</a>.</li>
+                                    <li>Once logged in, head over to "Profile".</li>
+                                    <li>Copy and paste your own personal API Key.</li>
+                                </ul>
+                            </span>
+                        </details>
+                    </label>
                     <input className='' type="password" id="api_key" required onChange={props.onChangeUserInfo}></input>
                 </div>
 

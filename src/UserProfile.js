@@ -16,7 +16,7 @@ const UserProfile = (props) => {
           <span className='col-12 text-center border '>{props.favoriteMovieTitle}</span>
           <span className='col-12 text-center border mb-4'>{props.favoriteMovieDate}</span>
         </section>
-        <input type="file"></input>
+        <input className='col-12' accept='image/*' type="file" id="profile_picture" onChange={props.onChangeUserInfo}></input>
       </section>
 
       <section className='col-4 border my-1' >

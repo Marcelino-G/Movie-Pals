@@ -47,6 +47,13 @@ const Parent = () => {
       console.log(json)
 
       if (json['results'] === null){
+
+        if(json['errorMessage'] === 'Invalid API Key'){
+          throw new Error(json['errorMessage'])
+        } else if(json['errorMessage'] === 'Server busy'){
+          throw new Error(`${json['errorMessage']}. Try again in a few minutes.`)
+        }
+        
         throw new Error(`${json['errorMessage']}. Try again tomorrow.`)
       } else if (json['results'].length === 0 ) {
           throw new Error('Film could not be found. Please check spelling for "Favorite Movie".')
@@ -86,6 +93,7 @@ const Parent = () => {
         })
     } else if (e.target.id === "profile_picture"){
       const pictureFile = URL.createObjectURL(e.target.files[0])
+      console.log(e.target.files)
       setUserInfo({
         ...userInfo,
         profile_picture: pictureFile
@@ -116,7 +124,11 @@ const Parent = () => {
 
     try {
 
-      if(addMovie.length === 0){
+      if(addMovie.length === 8){
+        console.log(addMovie)
+        throw new Error("Max recommended movies reached")
+
+      } else if(addMovie.length === 0){
 
         setAddMovie([{
           movie_title: searchedMovie['movie_title'],
@@ -163,6 +175,7 @@ const Parent = () => {
       onClick={handleClickAdd}
       addMovie={addMovie}
       onChangeSearchInfo={handleChangeSearchInfo}
+      onChangeUserInfo={handleChangeUserInfo}
       /> 
       : 
       <Form 
