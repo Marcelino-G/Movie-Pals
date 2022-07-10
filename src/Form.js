@@ -11,7 +11,7 @@ const Form = (props) => {
                 <img className='col-2 img-fluid' src='#' />
             </div>
 
-            <form onSubmit={props.onSubmit} className="col-8 row justify-content-center">
+            <form onSubmit={props.onFormSubmit} className="col-8 row justify-content-center">
                 <div className='col-12 row my-1'>
                     <label className='col-12'>User Name</label>
                     <input className='col-12' type="text" id="user_name" required onChange={props.onChangeUserInfo}></input>

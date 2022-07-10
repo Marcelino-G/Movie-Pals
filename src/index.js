@@ -32,19 +32,70 @@ const Parent = () => {
 
   useEffect(() => {
 
-    if (searchTrigger === true){
-      fetchh(searchMovie, setSearchedMovie)
-      return
-    }  
-  }, [formTrigger, searchTrigger])
+
+    const searchUseEffect = async() => {
+
+      try {
+        
+        if (searchTrigger === true){
+          await fetchh(searchMovie, setSearchedMovie)
+          // if(returned[0] === 200 && returned[1] !== null){
+          //   const add_button = document.getElementById("add_button")
+          //   add_button.removeAttribute('disabled')
+          // } else {
+          //   const add_button = document.getElementById("add_button")
+          //   add_button.setAttribute('disabled', '')
+          // }
+
+
+
+        }
+
+
+        // if(formTrigger === true){
+        //   if(searchedMovie['movie_title'] === ""){
+        //     const addButton = document.getElementById("add_button")
+        //     addButton.setAttribute('disabled', '')
+        //   } else{
+        //     const addButton = document.getElementById("add_button")
+        //     addButton.removeAttribute('disabled')
+        //   }
+        // }
+        
+
+      } catch (error) {
+        alert(error)
+      }
+
+
+    }
+
+    
+    
+    searchUseEffect();
+
+    // try {
+
+    //   if (searchTrigger === true){
+    //     fetchh(searchMovie, setSearchedMovie)
+    //   }  
+    // } catch (error) {
+    //   alert(error)
+    // }
+
+    
+
+    
+  }, [formTrigger, searchTrigger, addMovie])
 
   const fetchh = async (x, y) => {
 
     try {
 
       let response = await fetch(`https://imdb-api.com/en/API/SearchMovie/${userInfo['api_key']}/${x}`) 
+      console.log(response['status'])
       let json = await response.json()
-      console.log(json)
+      console.log(json['results'])
 
       if (json['results'] === null){
 
@@ -52,6 +103,8 @@ const Parent = () => {
           throw new Error(json['errorMessage'])
         } else if(json['errorMessage'] === 'Server busy'){
           throw new Error(`${json['errorMessage']}. Try again in a few minutes.`)
+        } else if(json['expression'] === null){
+          throw new Error(json['errorMessage'])
         }
         
         throw new Error(`${json['errorMessage']}. Try again tomorrow.`)
@@ -59,13 +112,16 @@ const Parent = () => {
           throw new Error('Film could not be found. Please check spelling for "Favorite Movie".')
         } else {
 
-            y(() => ({
+            await y(() => ({
               movie_title: json['results'][0]['title'],
               movie_date: json['results'][0]['description'],
               movie_img: json['results'][0]['image'],
               movie_id: json['results'][0]["id"]
             }))
             setSearchTrigger(false)
+            // return ([response['status'], json['results']])
+            
+            
           }
 
     } catch (error) {
@@ -110,6 +166,27 @@ const Parent = () => {
     try {
       await fetchh(userInfo['favorite_movie'], setFavoriteMovie);
       setFormTrigger(true)
+      // setFormTrigger(true)
+      // console.log(returned[0])
+
+      // if(returned[0] === 200 && returned[1] !== null){
+      //   console.log("asa")
+      //   console.log(formTrigger)
+      //     if(formTrigger === true){
+
+      //       console.log("aslasla")
+      //     }
+      //   }
+
+      // if(response.status === 200 && json['results'] !== null){
+        
+      //   if(formTrigger === true){
+
+      //     console.log("aslasla")
+      //   }
+      // }
+
+      
     } catch (error) {
       alert(error)
     }
@@ -118,9 +195,12 @@ const Parent = () => {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     setSearchTrigger(true)
+    
   }
 
-  const handleClickAdd = () => {    
+  const handleClickAdd = (e) => {    
+
+    
 
     try {
 
@@ -159,6 +239,22 @@ const Parent = () => {
     }
   }
 
+  const handleClickRemoveList = (e) => {
+
+    addMovie.map(movie => {
+
+      if(movie['movie_id'] === e.target.id){
+        console.log(addMovie.indexOf(movie))
+        addMovie.splice(movie,1)
+      }
+      
+    })
+
+
+
+
+  }
+
   return (
     <div className='container border border-3 border-danger h-100'>
       {formTrigger === true ? 
@@ -176,12 +272,14 @@ const Parent = () => {
       addMovie={addMovie}
       onChangeSearchInfo={handleChangeSearchInfo}
       onChangeUserInfo={handleChangeUserInfo}
+      onFormSubmit={handleFormSubmit}
+      onClickRemove={handleClickRemoveList}
       /> 
       : 
       <Form 
       onChangeUserInfo={handleChangeUserInfo} 
       value={userInfo} 
-      onSubmit={handleFormSubmit}
+      onFormSubmit={handleFormSubmit}
       /> 
       }
     </div>
