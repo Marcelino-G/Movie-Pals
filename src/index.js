@@ -51,6 +51,9 @@ const Parent = () => {
 
         }
 
+        console.log(addMovie)
+
+        // console.log(addMovie)
 
         // if(formTrigger === true){
         //   if(searchedMovie['movie_title'] === ""){
@@ -86,16 +89,16 @@ const Parent = () => {
     
 
     
-  }, [formTrigger, searchTrigger, addMovie])
+  }, [searchTrigger])
 
   const fetchh = async (x, y) => {
 
     try {
 
       let response = await fetch(`https://imdb-api.com/en/API/SearchMovie/${userInfo['api_key']}/${x}`) 
-      console.log(response['status'])
+      // console.log(response['status'])
       let json = await response.json()
-      console.log(json['results'])
+      // console.log(json['results'])
 
       if (json['results'] === null){
 
@@ -149,7 +152,7 @@ const Parent = () => {
         })
     } else if (e.target.id === "profile_picture"){
       const pictureFile = URL.createObjectURL(e.target.files[0])
-      console.log(e.target.files)
+      // console.log(e.target.files)
       setUserInfo({
         ...userInfo,
         profile_picture: pictureFile
@@ -198,6 +201,10 @@ const Parent = () => {
     
   }
 
+  const hoverRemove =  (e) => {
+    e.target.style.display = "none"
+  }
+
   const handleClickAdd = (e) => {    
 
     
@@ -205,7 +212,7 @@ const Parent = () => {
     try {
 
       if(addMovie.length === 8){
-        console.log(addMovie)
+        // console.log(addMovie)
         throw new Error("Max recommended movies reached")
 
       } else if(addMovie.length === 0){
@@ -222,6 +229,9 @@ const Parent = () => {
             throw new Error("Movie already added to the recommended movie list")
           }
   
+
+          
+
           setAddMovie(prev => {
             return [...prev,
               {
@@ -231,6 +241,8 @@ const Parent = () => {
               movie_id: searchedMovie['movie_id']      
             }]
           })
+
+          
         } 
       
     } catch (error) {
@@ -241,14 +253,10 @@ const Parent = () => {
 
   const handleClickRemoveList = (e) => {
 
-    addMovie.map(movie => {
-
-      if(movie['movie_id'] === e.target.id){
-        console.log(addMovie.indexOf(movie))
-        addMovie.splice(movie,1)
-      }
-      
-    })
+    const removeItem = e.target.id
+    // console.log(removeItem)
+    setAddMovie(addMovie.filter(movie => movie['movie_id'] !== removeItem))
+    // console.log(addMovie)
 
 
 
@@ -274,6 +282,7 @@ const Parent = () => {
       onChangeUserInfo={handleChangeUserInfo}
       onFormSubmit={handleFormSubmit}
       onClickRemove={handleClickRemoveList}
+      onHover={hoverRemove}
       /> 
       : 
       <Form 

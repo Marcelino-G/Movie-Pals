@@ -55,8 +55,8 @@ const UserProfile = (props) => {
         <ul className='row justify-content-evenly border border-warning' id='addContainer'>
           {props.addMovie.map((item) => (
             
-            <li className='col-3 row no-gutters justify-content-center border border-danger listt overflow-auto' key={item["movie_id"]}>
-              <button id={item["movie_id"]} onClick={props.onClickRemove}>Remove</button>
+            <li  onPointerOver={props.onHover} className='col-3 row no-gutters justify-content-center border border-danger listt overflow-auto' key={item["movie_id"]}>
+              <button className='removeBtn' id={item["movie_id"]} onClick={props.onClickRemove}>Remove</button>
               <img className='col-9 img-fluid border p-0 movie_list' src={item['movie_img']}/>
               <span className=' border text-center' >{item['movie_title']}</span>
               <span className=' border text-center'>{item['movie_date']}</span>
