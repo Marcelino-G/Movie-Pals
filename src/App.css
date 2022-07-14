@@ -50,3 +50,25 @@ input[type='file'] {
 
     visibility: visible;
 } */
+
+#logo{
+
+    animation-duration: 5s;
+    animation-name: spinn;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+
+}
+
+@keyframes spinn {
+    
+    from{
+        transform:  rotate3d(0, 0, 0, 0)
+        
+    }
+
+    to{
+        transform:  rotate3d(0, .75, .1, -360deg)
+    }
+
+}

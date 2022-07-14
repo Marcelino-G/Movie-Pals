@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
 import './App.css';
+import Logo from './Logo.png'
 
 const Form = (props) => {
 
     return (
         <div className='row justify-content-center w-50 position-relative top-50 start-50 translate-middle py-2 border border-warning border-2 bg-success'>
             
-            <div className='row'>
-                <h1 className='col-6 offset-2'>Movie Pals</h1>
-                <img className='col-2 img-fluid' src='#' />
+            <div className='row border'>
+                <h1 className='col-6 border mx-auto'>Movie Pals</h1>
+                <img id="logo" className='col-2 position-absolute offset-9 img-fluid' src={Logo} />
             </div>
 
             <form onSubmit={props.onFormSubmit} className="col-8 row justify-content-center">
