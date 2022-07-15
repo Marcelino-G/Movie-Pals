@@ -2,18 +2,17 @@ img {
 
     max-width: 427px;
     max-height: 374px;
-
 }
 
 input[type='file'] {
+
     color: rgba(0, 0, 0, 0)
-  }
+}
 
 #searched_movie{
 
     max-width: 219px;
     max-height: 269px;
-
 }
 
 .movie_list{
@@ -21,7 +20,6 @@ input[type='file'] {
     min-width: 109px;
     min-height: 152px;
     max-height: 153px;
-
 }
 
 #search_section{
@@ -36,20 +34,9 @@ input[type='file'] {
 }
 
 .listt{
+
     max-height: 270px;
 }
-
-/* .removeBtn{
-
-
-    visibility: collapse;
-
-}
-
-.removeBtn:hover {
-
-    visibility: visible;
-} */
 
 #logo{
 
@@ -57,18 +44,14 @@ input[type='file'] {
     animation-name: spinn;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
-
 }
 
 @keyframes spinn {
     
     from{
         transform:  rotate3d(0, 0, 0, 0)
-        
     }
-
     to{
         transform:  rotate3d(0, .75, .1, -360deg)
     }
-
 }

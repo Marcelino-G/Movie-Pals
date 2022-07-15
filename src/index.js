@@ -2,17 +2,20 @@ import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom/client';
 import UserProfile from './UserProfile';
 import Form from './Form'
-
+import {Routes, Route, useNavigate, BrowserRouter as Router} from 'react-router-dom'
 
 const main = ReactDOM.createRoot(document.getElementById('main'));
 
 const Parent = () => {
 
+  const navigate = useNavigate();
+
   const [userInfo, setUserInfo] = useState({
     user_name: "",
     favorite_movie: "",
     api_key: "",
-    profile_picture: ""
+    profile_picture: "",
+    id: ""
   })
   const [favoriteMovie, setFavoriteMovie] = useState({
     movie_title: "",
@@ -28,68 +31,27 @@ const Parent = () => {
   const [addMovie, setAddMovie] = useState([])
   
   const [searchMovie, setSearchMovie] = useState("#")
-  const [formTrigger, setFormTrigger] = useState(false);
   const [searchTrigger, setSearchTrigger] = useState(false)
+  
 
   useEffect(() => {
 
-
     const searchUseEffect = async() => {
-
+    
       try {
         
         if (searchTrigger === true){
           await fetchh(searchMovie, setSearchedMovie)
-          // if(returned[0] === 200 && returned[1] !== null){
-          //   const add_button = document.getElementById("add_button")
-          //   add_button.removeAttribute('disabled')
-          // } else {
-          //   const add_button = document.getElementById("add_button")
-          //   add_button.setAttribute('disabled', '')
-          // }
-
-
-
+          setSearchTrigger(false)
         }
-
-        console.log(addMovie)
-
-        // console.log(addMovie)
-
-        // if(formTrigger === true){
-        //   if(searchedMovie['movie_title'] === ""){
-        //     const addButton = document.getElementById("add_button")
-        //     addButton.setAttribute('disabled', '')
-        //   } else{
-        //     const addButton = document.getElementById("add_button")
-        //     addButton.removeAttribute('disabled')
-        //   }
-        // }
-        
 
       } catch (error) {
         alert(error)
       }
-
-
     }
 
-    
-    
     searchUseEffect();
 
-    // try {
-
-    //   if (searchTrigger === true){
-    //     fetchh(searchMovie, setSearchedMovie)
-    //   }  
-    // } catch (error) {
-    //   alert(error)
-    // }
-
-    
-
-    
   }, [searchTrigger])
 
   const fetchh = async (x, y) => {
@@ -122,10 +84,6 @@ const Parent = () => {
               movie_img: json['results'][0]['image'],
               movie_id: json['results'][0]["id"]
             }))
-            setSearchTrigger(false)
-            // return ([response['status'], json['results']])
-            
-            
           }
 
     } catch (error) {
@@ -153,7 +111,6 @@ const Parent = () => {
         })
     } else if (e.target.id === "profile_picture"){
       const pictureFile = URL.createObjectURL(e.target.files[0])
-      // console.log(e.target.files)
       setUserInfo({
         ...userInfo,
         profile_picture: pictureFile
@@ -168,47 +125,31 @@ const Parent = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (userInfo['api_key'] !== userInfo['id']){
+        alert('new user')
+        setAddMovie([])
+        setFavoriteMovie({})
+        setSearchedMovie({})
+        setUserInfo({
+          ...userInfo,
+          id: userInfo['api_key']
+        })
+      }
       await fetchh(userInfo['favorite_movie'], setFavoriteMovie);
-      setFormTrigger(true)
-      // setFormTrigger(true)
-      // console.log(returned[0])
+      navigate('/profile')
 
-      // if(returned[0] === 200 && returned[1] !== null){
-      //   console.log("asa")
-      //   console.log(formTrigger)
-      //     if(formTrigger === true){
-
-      //       console.log("aslasla")
-      //     }
-      //   }
-
-      // if(response.status === 200 && json['results'] !== null){
-        
-      //   if(formTrigger === true){
-
-      //     console.log("aslasla")
-      //   }
-      // }
-
-      
     } catch (error) {
       alert(error)
     }
   }
 
   const handleSearchSubmit = (e) => {
+
     e.preventDefault();
     setSearchTrigger(true)
-    
-  }
-
-  const hoverRemove =  (e) => {
-    e.target.style.display = "none"
   }
 
   const handleClickAdd = (e) => {    
-
-    
 
     try {
 
@@ -229,9 +170,6 @@ const Parent = () => {
           if(addMovie.find(array => array['movie_id'] === searchedMovie['movie_id'])){
             throw new Error("Movie already added to the recommended movie list")
           }
-  
-
-          
 
           setAddMovie(prev => {
             return [...prev,
@@ -242,8 +180,6 @@ const Parent = () => {
               movie_id: searchedMovie['movie_id']      
             }]
           })
-
-          
         } 
       
     } catch (error) {
@@ -252,22 +188,29 @@ const Parent = () => {
     }
   }
 
-  const handleClickRemoveList = (e) => {
+ useEffect(() => {
+  setUserInfo(JSON.parse(window.localStorage.getItem('info')))
+  setFavoriteMovie(JSON.parse(window.localStorage.getItem('fav')))
+  setAddMovie(JSON.parse(window.localStorage.getItem('movies')))
+  console.log(window.localStorage.getItem('info'))
+  console.log(window.localStorage.getItem('fav'))
+  console.log(window.localStorage.getItem('movies'))
+  
+ }, [])
 
-    const removeItem = e.target.id
-    // console.log(removeItem)
-    setAddMovie(addMovie.filter(movie => movie['movie_id'] !== removeItem))
-    // console.log(addMovie)
+ useEffect(() => {
+  
+  window.localStorage.setItem('info', JSON.stringify(userInfo))
+  window.localStorage.setItem('fav', JSON.stringify(favoriteMovie))
+  window.localStorage.setItem('movies', JSON.stringify(addMovie))
 
-
-
-
-  }
+ }, [userInfo, favoriteMovie, addMovie])
 
   return (
-    <div className='container border border-3 border-danger h-100'>
-      {formTrigger === true ? 
-      <UserProfile 
+
+    <div>
+      <Routes >
+        <Route className='container border border-3 border-danger h-100'  path='/profile' element={<UserProfile 
       profilePicture={userInfo['profile_picture']}
       userName={userInfo["user_name"]} 
       favoriteMovieTitle={favoriteMovie['movie_title']} 
@@ -282,20 +225,49 @@ const Parent = () => {
       onChangeSearchInfo={handleChangeSearchInfo}
       onChangeUserInfo={handleChangeUserInfo}
       onFormSubmit={handleFormSubmit}
-      onClickRemove={handleClickRemoveList}
-      onHover={hoverRemove}
-      /> 
-      : 
-      <Form 
+      /> } />
+        <Route path='/' element={<Form 
       onChangeUserInfo={handleChangeUserInfo} 
       value={userInfo} 
       onFormSubmit={handleFormSubmit}
-      /> 
-      }
+      /> }/>
+      </Routes>
     </div>
-  )
+)
+
+    // <div className='container border border-3 border-danger h-100'>
+    //   {formTrigger === true ? 
+    //   <UserProfile 
+    //   profilePicture={userInfo['profile_picture']}
+    //   userName={userInfo["user_name"]} 
+    //   favoriteMovieTitle={favoriteMovie['movie_title']} 
+    //   favoriteMovieImg={favoriteMovie['movie_img']} 
+    //   favoriteMovieDate={favoriteMovie['movie_date']}
+    //   onSubmit={handleSearchSubmit}
+    //   searchedMovieImg={searchedMovie['movie_img']}
+    //   searchedMovieTitle={searchedMovie['movie_title']}
+    //   searchedMovieDate={searchedMovie['movie_date']}
+    //   onClick={handleClickAdd}
+    //   addMovie={addMovie}
+    //   onChangeSearchInfo={handleChangeSearchInfo}
+    //   onChangeUserInfo={handleChangeUserInfo}
+    //   onFormSubmit={handleFormSubmit}
+    //   onClickRemove={handleClickRemoveList}
+    //   onHover={hoverRemove}
+    //   /> 
+    //   : 
+    //   <Form 
+    //   onChangeUserInfo={handleChangeUserInfo} 
+    //   value={userInfo} 
+    //   onFormSubmit={handleFormSubmit}
+    //   /> 
+    //   }
+    // </div>
 }
 
-main.render(<Parent/>)
+main.render(
+<Router>
+  <Parent/>
+</Router>)
 
 
