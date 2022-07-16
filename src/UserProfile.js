@@ -7,9 +7,13 @@ const UserProfile = (props) => {
   return (
     <div className='row justify-content-around border border-info'>
 
+      <div>
+        <button onClick={props.onClickLogOut}>Log Out</button>
+      </div>
+
       <section className='col-7 row justify-content-start border my-1'>
         <span className='border col-12 fs-3'>{props.userName}</span>
-        <img className='border col-7 img-fluid' src={props.profilePicture === ""? friend_pic : props.profilePicture}/>
+        <img className='border col-7 img-fluid' src={props.profilePicture === undefined? friend_pic : props.profilePicture}/>
         <section className='col-5 row justify-content-center border'>
           <span className='col-12 text-center border mt-4' >Favorite Movie</span>
           <img className="col-8 img-fluid border" alt="Loading..." src={props.favoriteMovieImg}/>
@@ -55,8 +59,8 @@ const UserProfile = (props) => {
         <ul className='row justify-content-evenly border border-warning' id='addContainer'>
           {props.addMovie.map((item) => (
             
-            <li  onPointerOver="" className='col-3 row no-gutters justify-content-center border border-danger listt overflow-auto' key={item["movie_id"]}>
-              <button className='removeBtn' id={item["movie_id"]} onClick="" >Remove</button>
+            <li  onPointerEnter={props.onPointerEnter} onPointerLeave={props.onPointerLeave} className='col-3 row no-gutters justify-content-center border border-danger listt overflow-auto' key={item["movie_id"]}>
+              <button onClick={props.onClickRemove} className='removeBtn' id={item["movie_id"]} >Remove</button>
               <img className='col-9 img-fluid border p-0 movie_list' src={item['movie_img']}/>
               <span className=' border text-center' >{item['movie_title']}</span>
               <span className=' border text-center'>{item['movie_date']}</span>

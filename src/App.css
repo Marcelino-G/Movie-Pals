@@ -55,3 +55,7 @@ input[type='file'] {
         transform:  rotate3d(0, .75, .1, -360deg)
     }
 }
+
+.removeBtn{
+    visibility: hidden;
+}

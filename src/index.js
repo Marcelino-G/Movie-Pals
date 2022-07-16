@@ -188,6 +188,34 @@ const Parent = () => {
     }
   }
 
+  const handleOnPointerEnter = (e) => {
+    let z = e.target.firstChild
+    z.style.visibility = "visible"
+  }
+
+  const handleOnPointerLeave = (e) => {
+    let z = e.target.firstChild
+    z.style.visibility = "hidden"
+  }
+
+  const handleClickRemove = (e) => {
+
+    setAddMovie(addMovie.filter((movie) => movie['movie_id'] !== e.target.id))
+  }
+
+  const handleOnClickLogOut = () => {
+    setUserInfo({})
+    setFavoriteMovie({})
+    setSearchedMovie({})
+    setAddMovie([])
+    setSearchMovie()
+    navigate("/")
+  }
+
+  
+
+  
+
  useEffect(() => {
   setUserInfo(JSON.parse(window.localStorage.getItem('info')))
   setFavoriteMovie(JSON.parse(window.localStorage.getItem('fav')))
@@ -225,6 +253,10 @@ const Parent = () => {
       onChangeSearchInfo={handleChangeSearchInfo}
       onChangeUserInfo={handleChangeUserInfo}
       onFormSubmit={handleFormSubmit}
+      onPointerEnter={handleOnPointerEnter}
+      onPointerLeave={handleOnPointerLeave}
+      onClickRemove={handleClickRemove}
+      onClickLogOut={handleOnClickLogOut}
       /> } />
         <Route path='/' element={<Form 
       onChangeUserInfo={handleChangeUserInfo} 
