@@ -2,19 +2,22 @@ import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom/client';
 import UserProfile from './UserProfile';
 import Form from './Form'
+import friendsData from './FriendsData';
+import FriendsProfile from './FriendsProfile';
 import {Routes, Route, useNavigate, BrowserRouter as Router} from 'react-router-dom'
 
 const main = ReactDOM.createRoot(document.getElementById('main'));
 
 const Parent = () => {
 
+  // console.log(friendsData)
   const navigate = useNavigate();
 
   const [userInfo, setUserInfo] = useState({
     user_name: "",
     favorite_movie: "",
     api_key: "",
-    profile_picture: "",
+    profile_picture: undefined,
     id: ""
   })
   const [favoriteMovie, setFavoriteMovie] = useState({
@@ -29,6 +32,13 @@ const Parent = () => {
     movie_id: ""
   })
   const [addMovie, setAddMovie] = useState([])
+
+  const [friend, setFriend] = useState({})
+  const [friendFavoriteMovie, setFriendFavoriteMovie] = useState({
+    movie_title: "",
+    movie_date: "",
+    movie_img: "#"
+  })
   
   const [searchMovie, setSearchMovie] = useState("#")
   const [searchTrigger, setSearchTrigger] = useState(false)
@@ -59,9 +69,9 @@ const Parent = () => {
     try {
 
       let response = await fetch(`https://imdb-api.com/en/API/SearchMovie/${userInfo['api_key']}/${x}`) 
-      // console.log(response['status'])
+      console.log(response['status'])
       let json = await response.json()
-      // console.log(json['results'])
+      console.log(json['results'])
 
       if (json['results'] === null){
 
@@ -212,6 +222,17 @@ const Parent = () => {
     navigate("/")
   }
 
+  const handleOnClickFriend = async (e) => {
+
+    
+    
+    let found = friendsData.find((friend) => friend.id === e.target.id)
+    setFriend(found)
+    await fetchh(found['favorite_movie'], setFriendFavoriteMovie)
+    
+    navigate("/friend")
+  }
+
   
 
   
@@ -220,9 +241,9 @@ const Parent = () => {
   setUserInfo(JSON.parse(window.localStorage.getItem('info')))
   setFavoriteMovie(JSON.parse(window.localStorage.getItem('fav')))
   setAddMovie(JSON.parse(window.localStorage.getItem('movies')))
-  console.log(window.localStorage.getItem('info'))
-  console.log(window.localStorage.getItem('fav'))
-  console.log(window.localStorage.getItem('movies'))
+  // console.log(window.localStorage.getItem('info'))
+  // console.log(window.localStorage.getItem('fav'))
+  // console.log(window.localStorage.getItem('movies'))
   
  }, [])
 
@@ -233,6 +254,9 @@ const Parent = () => {
   window.localStorage.setItem('movies', JSON.stringify(addMovie))
 
  }, [userInfo, favoriteMovie, addMovie])
+
+ console.log(friendFavoriteMovie)
+ 
 
   return (
 
@@ -257,12 +281,17 @@ const Parent = () => {
       onPointerLeave={handleOnPointerLeave}
       onClickRemove={handleClickRemove}
       onClickLogOut={handleOnClickLogOut}
+      onClickFriend={handleOnClickFriend}
       /> } />
         <Route path='/' element={<Form 
       onChangeUserInfo={handleChangeUserInfo} 
       value={userInfo} 
       onFormSubmit={handleFormSubmit}
       /> }/>
+        <Route path='/friend' element={<FriendsProfile friendName={friend['user_name']} 
+        friendFavoriteMovie={friendFavoriteMovie['movie_img']}
+        onClickLogOut={handleOnClickLogOut}
+        />} />
       </Routes>
     </div>
 )
@@ -295,11 +324,14 @@ const Parent = () => {
     //   /> 
     //   }
     // </div>
+
+    
 }
 
 main.render(
 <Router>
   <Parent/>
 </Router>)
+
 
 

@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import './App.css';
 import friend_pic from './friend_pic.png'
+import friendsData from './FriendsData';
 
 const UserProfile = (props) => {
 
@@ -33,6 +34,14 @@ const UserProfile = (props) => {
 
       <section className='col-4 border my-1' >
         <h1>Friends List</h1>
+        <section>
+          {friendsData.map((friend) => (
+            <div className='border' onClick={props.onClickFriend} id={friend.id} key={friend.id}>
+              <img alt="loading..." src='#' />
+              <span>{friend['user_name']}</span>
+            </div>
+          ))}
+        </section>
       </section>
         
 
