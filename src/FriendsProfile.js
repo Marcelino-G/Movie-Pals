@@ -34,7 +34,7 @@ const FriendsProfile = (props) => {
               <span className=' border text-center' >{item['movie_title']}</span>
               <span className=' border text-center'>{item['movie_date']}</span>
             </li>) */}
-          )}
+          {/* )} */}
         </ul>
       </section>
 

@@ -33,12 +33,7 @@ const Parent = () => {
   })
   const [addMovie, setAddMovie] = useState([])
 
-  const [friend, setFriend] = useState({})
-  const [friendFavoriteMovie, setFriendFavoriteMovie] = useState({
-    movie_title: "",
-    movie_date: "",
-    movie_img: "#"
-  })
+  
   
   const [searchMovie, setSearchMovie] = useState("#")
   const [searchTrigger, setSearchTrigger] = useState(false)
@@ -69,9 +64,9 @@ const Parent = () => {
     try {
 
       let response = await fetch(`https://imdb-api.com/en/API/SearchMovie/${userInfo['api_key']}/${x}`) 
-      console.log(response['status'])
+      // console.log(response['status'])
       let json = await response.json()
-      console.log(json['results'])
+      // console.log(json['results'])
 
       if (json['results'] === null){
 
@@ -222,16 +217,104 @@ const Parent = () => {
     navigate("/")
   }
 
+  const [recommended, setRecommended] = useState()
+  const [friendSwitch, setFriendSwitch] = useState(false)
+  const [friend, setFriend] = useState("")
+  const [friendRecommends, setFriendRecommends] = useState();
+  const [friendFavoriteMovie, setFriendFavoriteMovie] = useState({
+    movie_title: "",
+    movie_date: "",
+    movie_img: "#"
+  })
+
   const handleOnClickFriend = async (e) => {
+
+    let found = friendsData.find((friend) => friend.id === e.target.id)
+    
+    setFriend({
+      user_name: found['user_name'],
+      favorite_movie: found['favorite_movie'],
+      profile_pic: found['profile_pic'],
+      id: found['id']
+    }
+    )
+
+    setFriendRecommends(
+      found['recommended_movies']
+    )
 
     
     
-    let found = friendsData.find((friend) => friend.id === e.target.id)
-    setFriend(found)
-    await fetchh(found['favorite_movie'], setFriendFavoriteMovie)
-    
-    navigate("/friend")
+    setFriendSwitch(true)
   }
+
+  
+
+  
+
+  const friendRecommendedFetch = async (x, y, z) => {
+
+    try{
+
+      let response = await fetch(`https://imdb-api.com/en/API/SearchMovie/${userInfo['api_key']}/${x}`) 
+      // console.log(response['status'])
+      let json = await response.json()
+      console.log(json['results'])
+
+      if (z.length === 0){
+        await y([{
+          movie_title: searchedMovie['movie_title'],
+          movie_date: searchedMovie['movie_date'],
+          movie_img: searchedMovie['movie_img'], 
+          movie_id: searchedMovie['movie_id']}])
+      } else {
+        await y(prev => {
+          return [...prev, {
+            movie_title: searchedMovie['movie_title'],
+            movie_date: searchedMovie['movie_date'],
+            movie_img: searchedMovie['movie_img'], 
+            movie_id: searchedMovie['movie_id']
+          }]
+        })
+      }
+
+      console.log(recommended)
+
+    } catch(error){
+
+      console.log(error) 
+
+    }
+
+
+  }
+
+  useEffect(() => {
+    
+    const fetchFriendAll = async () => {
+
+      if (friendSwitch){
+        await fetchh(friend['favorite_movie'], setFriendFavoriteMovie)
+        await friendRecommends.map((recommends) => {
+          friendRecommendedFetch(recommends, setRecommended, recommended)
+        })
+        navigate("/friend")
+        
+      }
+
+    }
+
+    fetchFriendAll();
+
+  }, [friendSwitch])
+
+
+  
+  
+
+
+
+  
 
   
 
@@ -255,7 +338,7 @@ const Parent = () => {
 
  }, [userInfo, favoriteMovie, addMovie])
 
- console.log(friendFavoriteMovie)
+//  console.log(friendFavoriteMovie)
  
 
   return (
