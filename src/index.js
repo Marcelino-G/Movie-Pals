@@ -6,6 +6,7 @@ import friendsData from './FriendsData';
 import FriendsProfile from './FriendsProfile';
 import {Routes, Route, useNavigate, BrowserRouter as Router} from 'react-router-dom'
 
+
 const main = ReactDOM.createRoot(document.getElementById('main'));
 
 const Parent = () => {
@@ -37,6 +38,15 @@ const Parent = () => {
   
   const [searchMovie, setSearchMovie] = useState("#")
   const [searchTrigger, setSearchTrigger] = useState(false)
+
+  const [recommended, setRecommended] = useState([])
+  const [friendSwitch, setFriendSwitch] = useState(false)
+  const [friend, setFriend] = useState("")
+  const [friendFavoriteMovie, setFriendFavoriteMovie] = useState({
+    movie_title: "",
+    movie_date: "",
+    movie_img: "#"
+  })
   
 
   useEffect(() => {
@@ -217,17 +227,60 @@ const Parent = () => {
     navigate("/")
   }
 
-  const [recommended, setRecommended] = useState()
-  const [friendSwitch, setFriendSwitch] = useState(false)
-  const [friend, setFriend] = useState("")
-  const [friendRecommends, setFriendRecommends] = useState();
-  const [friendFavoriteMovie, setFriendFavoriteMovie] = useState({
-    movie_title: "",
-    movie_date: "",
-    movie_img: "#"
-  })
+  const handleClickProfile = () => {
+    navigate("/profile")
+  }
+
+
+
+
+
+  const friendRecommendedFetch = async (x) => {
+
+    try{
+
+      let response = await fetch(`https://imdb-api.com/en/API/SearchMovie/${userInfo['api_key']}/${x}`) 
+      // console.log(response['status'])
+      let json = await response.json()
+      console.log("hey")
+
+      return {
+        movie_title: json.results[0].title,
+        movie_date: json.results[0].description,
+        movie_img: json.results[0].image,
+        movie_id: json.results[0].id
+      }
+
+
+      // if(recommended !== undefined){
+      //   setRecommended(prev => {
+      //     return [...prev, {
+      //       movie_title: json['results']['0']['title'] 
+      //     }]
+      //   })
+      // } else {
+      //   setRecommended([{
+      //     movie_title: json['results']['0']['title'] 
+      //   }]) 
+      // }
+
+    
+    } catch(error){
+
+      console.log(error) 
+    }
+  }
+
+  
+ 
 
   const handleOnClickFriend = async (e) => {
+
+    if(e.target.id === friend['id']){
+      console.log("boop")
+      navigate("/friend")
+      return
+    }
 
     let found = friendsData.find((friend) => friend.id === e.target.id)
     
@@ -235,95 +288,77 @@ const Parent = () => {
       user_name: found['user_name'],
       favorite_movie: found['favorite_movie'],
       profile_pic: found['profile_pic'],
-      id: found['id']
+      id: found['id'],
+      recommended_movies: found['recommended_movies']
     }
     )
+    await fetchh(found['favorite_movie'], setFriendFavoriteMovie)
 
-    setFriendRecommends(
-      found['recommended_movies']
-    )
+    const thingies = await Promise.all(found['recommended_movies'].map( (rec) => {
+      return friendRecommendedFetch(rec)
+    })) 
 
-    
-    
-    setFriendSwitch(true)
+    setRecommended(thingies)
+    // setFriendSwitch(true)
+    navigate("/friend")
   }
+
 
   
 
   
 
-  const friendRecommendedFetch = async (x, y, z) => {
+  
+  
+  // console.log(recommended)
 
-    try{
+  // useEffect(() => { 
+  //   const fetchFriendAll = async () => {
 
-      let response = await fetch(`https://imdb-api.com/en/API/SearchMovie/${userInfo['api_key']}/${x}`) 
-      // console.log(response['status'])
-      let json = await response.json()
-      console.log(json['results'])
-
-      if (z.length === 0){
-        await y([{
-          movie_title: searchedMovie['movie_title'],
-          movie_date: searchedMovie['movie_date'],
-          movie_img: searchedMovie['movie_img'], 
-          movie_id: searchedMovie['movie_id']}])
-      } else {
-        await y(prev => {
-          return [...prev, {
-            movie_title: searchedMovie['movie_title'],
-            movie_date: searchedMovie['movie_date'],
-            movie_img: searchedMovie['movie_img'], 
-            movie_id: searchedMovie['movie_id']
-          }]
-        })
-      }
-
-      console.log(recommended)
-
-    } catch(error){
-
-      console.log(error) 
-
-    }
-
-
-  }
-
-  useEffect(() => {
-    
-    const fetchFriendAll = async () => {
-
-      if (friendSwitch){
-        await fetchh(friend['favorite_movie'], setFriendFavoriteMovie)
-        await friendRecommends.map((recommends) => {
-          friendRecommendedFetch(recommends, setRecommended, recommended)
-        })
-        navigate("/friend")
+  //     if (friendSwitch){
+  //       await fetchh(friend['favorite_movie'], setFriendFavoriteMovie)
         
-      }
+  //       for(let i = 0; friendRecommends.length > 0; i++){
 
-    }
+  //         let g = await friendRecommendedFetch(friendRecommends[i])
+  //         console.log(g)
+  //       }
 
-    fetchFriendAll();
+        
+  //       navigate("/friend")
+  //     }
+      
+  //   }
 
-  }, [friendSwitch])
+  //   fetchFriendAll();
+  // }, [friendSwitch])
+
+
+  
+  
+
 
 
   
-  
-
-
 
   
 
   
 
-  
+
+
+
+
+
+
+
 
  useEffect(() => {
   setUserInfo(JSON.parse(window.localStorage.getItem('info')))
   setFavoriteMovie(JSON.parse(window.localStorage.getItem('fav')))
   setAddMovie(JSON.parse(window.localStorage.getItem('movies')))
+  setRecommended(JSON.parse(window.localStorage.getItem('recommended')))
+  setFriendFavoriteMovie(JSON.parse(window.localStorage.getItem('friendsFavorite')))
   // console.log(window.localStorage.getItem('info'))
   // console.log(window.localStorage.getItem('fav'))
   // console.log(window.localStorage.getItem('movies'))
@@ -335,8 +370,10 @@ const Parent = () => {
   window.localStorage.setItem('info', JSON.stringify(userInfo))
   window.localStorage.setItem('fav', JSON.stringify(favoriteMovie))
   window.localStorage.setItem('movies', JSON.stringify(addMovie))
+  window.localStorage.setItem('recommended', JSON.stringify(recommended))
+  window.localStorage.setItem('friendsFavorite', JSON.stringify(friendFavoriteMovie))
 
- }, [userInfo, favoriteMovie, addMovie])
+ }, [userInfo, favoriteMovie, addMovie, recommended])
 
 //  console.log(friendFavoriteMovie)
  
@@ -372,8 +409,12 @@ const Parent = () => {
       onFormSubmit={handleFormSubmit}
       /> }/>
         <Route path='/friend' element={<FriendsProfile friendName={friend['user_name']} 
-        friendFavoriteMovie={friendFavoriteMovie['movie_img']}
+        friendFavoriteMovieImage={friendFavoriteMovie['movie_img']}
         onClickLogOut={handleOnClickLogOut}
+        recommended={recommended}
+        onClickProfile={handleClickProfile}
+        friendFavoriteMovieTitle={friendFavoriteMovie['movie_title']}
+        friendFavoriteMovieDate={friendFavoriteMovie['movie_date']}
         />} />
       </Routes>
     </div>

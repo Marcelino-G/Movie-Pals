@@ -8,12 +8,28 @@ let friendsData = [
   recommended_movies: [
     'the exorcist', 
     'taxi driver', 
-    'akira', 
-    'american psycho', 
-    'napoleon dynamite',
-    'mars attacks',
-    'minions',
-    'the batman'
+    // 'the lord of the rings: fellowship', 
+    // 'hereditary', 
+    // 'napoleon dynamite',
+    // 'beatlejuice',
+    // 'leon',
+    // 'the batman'
+  ]
+},
+
+{user_name: "Billy", 
+  favorite_movie: "alita battle angel", 
+  profile_pic:"#", 
+  id: "2",
+  recommended_movies: [
+    'blade runner', 
+    'joker', 
+    'mid sommar', 
+    'parasite', 
+    'eternal sunshine of the spotless mind',
+    '28 days later',
+    'the shining',
+    'akira'
   ]
 }
 

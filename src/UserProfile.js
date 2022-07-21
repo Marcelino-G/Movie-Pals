@@ -8,9 +8,12 @@ const UserProfile = (props) => {
   return (
     <div className='row justify-content-around border border-info'>
 
-      <div>
-        <button onClick={props.onClickLogOut}>Log Out</button>
-      </div>
+      <nav>
+        <ul>
+          <li onClick={props.onClickLogOut}>Log Out</li>
+          <li onClick={props.onClickProfile}>Home</li>
+        </ul>
+      </nav>
 
       <section className='col-7 row justify-content-start border my-1'>
         <span className='border col-12 fs-3'>{props.userName}</span>
