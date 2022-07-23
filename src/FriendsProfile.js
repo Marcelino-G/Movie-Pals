@@ -25,6 +25,20 @@ const FriendsProfile = (props) => {
 
       <section className='col-4 border my-1' >
         <h1>Friends List</h1>
+
+        <ul>
+          {props.friendFriend.map((friend) => {
+            
+            
+            return (
+              <li className='border' onClick={props.onClickFriend} id={friend[0].id} key={friend[0].id}>
+                <img alt="loading..." src={friend[0]['profile_picture']} />
+                <span>{friend[0]['user_name']}</span>
+              </li>
+            )})}
+        </ul>
+
+        
       </section>
 
       <section className="col-7 row justify-content-center border my-1">

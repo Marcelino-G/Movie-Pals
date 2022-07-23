@@ -137,26 +137,59 @@ const Parent = () => {
     setSearchMovie(e.target.value)
   }
 
+  const [userData, setUserData] = useState(friendsData)
+  // console.log(userData)
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
+    
     try {
       if (userInfo['api_key'] !== userInfo['id']){
         alert('new user')
         setAddMovie([])
         setFavoriteMovie({})
         setSearchedMovie({})
-        setUserInfo({
-          ...userInfo,
-          id: userInfo['api_key']
+        setUserInfo({...userInfo, 
+          id: userInfo['api_key'],
         })
+        
+        
+        
+        
+        
+        // ({
+        //   ...userInfo,
+        //   id: userInfo['api_key']
+        // })
+
+        setUserData(prev => [
+          prev[0], {
+            user_name: prev[1]['user_name'], 
+          favorite_movie: prev[1]['favorite_movie'], 
+          profile_pic:prev[1]['profile_pic'], 
+          id: prev[1]['id'],
+          recommended_movies: prev[1]['recommended_movies'],
+          friends: [prev[1]['friends'], userInfo['id']]
+        },
+          userInfo
+          
+        ])
+
       }
       await fetchh(userInfo['favorite_movie'], setFavoriteMovie);
+      console.log("first")
+      console.log(userInfo)
+      console.log(userData)
       navigate('/profile')
 
     } catch (error) {
       alert(error)
     }
   }
+      console.log("second")
+      console.log(userInfo)
+      console.log(userData)
 
   const handleSearchSubmit = (e) => {
 
@@ -164,7 +197,9 @@ const Parent = () => {
     setSearchTrigger(true)
   }
 
-  const handleClickAdd = (e) => {    
+  const handleClickAdd = (e) => {   
+    
+    console.log(userData)
 
     try {
 
@@ -224,6 +259,8 @@ const Parent = () => {
     setSearchedMovie({})
     setAddMovie([])
     setSearchMovie()
+    setFriend("")
+    setUserData(friendsData)
     navigate("/")
   }
 
@@ -272,9 +309,11 @@ const Parent = () => {
   }
 
   
- 
+//  console.log(userData)
+const [friendFriend, setFriendFriend] = useState()
 
   const handleOnClickFriend = async (e) => {
+
 
     if(e.target.id === friend['id']){
       console.log("boop")
@@ -282,8 +321,32 @@ const Parent = () => {
       return
     }
 
-    let found = friendsData.find((friend) => friend.id === e.target.id)
+
+
     
+
+
+    // let found = friendsData.find((friend) => friend.id === e.target.id)
+    let found = userData.find((friend) => friend.id === e.target.id)
+    console.log(found['friends'])
+
+    let friends = await found['friends'].map((friend) => {
+      return userData.filter((found) => found['id'] === friend)
+      })
+    
+    
+    setFriendFriend(friends)
+    console.log(friends)
+
+
+
+
+
+
+
+
+
+
     setFriend({
       user_name: found['user_name'],
       favorite_movie: found['favorite_movie'],
@@ -300,6 +363,7 @@ const Parent = () => {
 
     setRecommended(thingies)
     // setFriendSwitch(true)
+
     navigate("/friend")
   }
 
@@ -339,15 +403,6 @@ const Parent = () => {
 
 
 
-  
-
-  
-
-  
-
-
-
-
 
 
 
@@ -359,6 +414,7 @@ const Parent = () => {
   setAddMovie(JSON.parse(window.localStorage.getItem('movies')))
   setRecommended(JSON.parse(window.localStorage.getItem('recommended')))
   setFriendFavoriteMovie(JSON.parse(window.localStorage.getItem('friendsFavorite')))
+  setFriendFavoriteMovie(JSON.parse(window.localStorage.getItem('userData')))
   // console.log(window.localStorage.getItem('info'))
   // console.log(window.localStorage.getItem('fav'))
   // console.log(window.localStorage.getItem('movies'))
@@ -366,12 +422,15 @@ const Parent = () => {
  }, [])
 
  useEffect(() => {
+
+  
   
   window.localStorage.setItem('info', JSON.stringify(userInfo))
   window.localStorage.setItem('fav', JSON.stringify(favoriteMovie))
   window.localStorage.setItem('movies', JSON.stringify(addMovie))
   window.localStorage.setItem('recommended', JSON.stringify(recommended))
   window.localStorage.setItem('friendsFavorite', JSON.stringify(friendFavoriteMovie))
+  window.localStorage.setItem('userData', JSON.stringify(userData))
 
  }, [userInfo, favoriteMovie, addMovie, recommended])
 
@@ -415,6 +474,7 @@ const Parent = () => {
         onClickProfile={handleClickProfile}
         friendFavoriteMovieTitle={friendFavoriteMovie['movie_title']}
         friendFavoriteMovieDate={friendFavoriteMovie['movie_date']}
+        friendFriend={friendFriend}
         />} />
       </Routes>
     </div>
