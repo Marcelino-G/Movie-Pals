@@ -14,7 +14,7 @@ const FriendsProfile = (props) => {
 
       <section className='col-7 row justify-content-start border my-1'>
         <span className='border col-12 fs-3'>{props.friendName}</span>
-        <img className='border col-7 img-fluid' />
+        <img className='border col-7 img-fluid' alt="loading..." src={props.friendImg}/>
         <section className='col-5 row justify-content-center border'>
           <span className='col-12 text-center border mt-4' >Favorite Movie</span>
           <img className="col-8 img-fluid border" alt="Loading..." src={props.friendFavoriteMovieImage} />
@@ -32,8 +32,8 @@ const FriendsProfile = (props) => {
             
             return (
               <li className='border' onClick={props.onClickFriend} id={friend[0].id} key={friend[0].id}>
-                <img alt="loading..." src={friend[0]['profile_picture']} />
-                <span>{friend[0]['user_name']}</span>
+                <img className='back' alt="loading..." src={friend[0]['profile_picture']} />
+                <span className='back' >{friend[0]['user_name']}</span>
               </li>
             )})}
         </ul>

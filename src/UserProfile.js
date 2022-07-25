@@ -24,13 +24,14 @@ const UserProfile = (props) => {
           <span className='col-12 text-center border '>{props.favoriteMovieTitle}</span>
           <span className='col-12 text-center border mb-4'>{props.favoriteMovieDate}</span>
         </section>
-        <form className='col-6 border'>
+        <form className='col-6 border' onSubmit={props.onSubmitProfilePic}>
           <label className='col-12 border' htmlFor="profile_picture" >Change Profile Picture?</label>
-          <input className='col-12 ' accept='image/*' type="file" id="profile_picture" onChange={props.onChangeUserInfo}></input>
+          <input className='col-12 ' accept='image/*' type="file" id="profile_picture" onChange={props.onChangeProfilePic}></input>
+          <input className='col-3 offset-1 mt-2 border' type="submit"></input>
         </form>
-        <form className=' col-6 border' onSubmit={props.onFormSubmit}>
+        <form className=' col-6 border' onSubmit={props.onChangeFavSubmit}>
           <label className='col-12 text-center border'>Change Favorite Movie</label>
-          <input className='col-8 border' type="search" id="favorite_movie" required onChange={props.onChangeUserInfo}></input>
+          <input className='col-8 border' type="search" id="favorite_movie" required></input>
           <input className='col-3 offset-1 mt-2 border' type="submit"></input>
         </form>
       </section>
@@ -40,8 +41,8 @@ const UserProfile = (props) => {
         <section>
           {friendsData.map((friend) => (
             <div className='border' onClick={props.onClickFriend} id={friend.id} key={friend.id}>
-              <img alt="loading..." src='#' />
-              <span>{friend['user_name']}</span>
+              <img className='back' alt="loading..." src='#' />
+              <span className='back'>{friend['user_name']}</span>
             </div>
           ))}
         </section>

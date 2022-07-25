@@ -46,7 +46,14 @@ const Form = (props) => {
 
                 <input className='col-8 mt-2' type="submit"></input>
             </form>
-
+            <dialog id="confirm" >
+                <p>is this correct?</p>
+                <ul>
+                    <li>{props.userName}</li>
+                    <li>{props.favoriteMovie}</li>
+                </ul>
+                <button onClick={props.onClickConfirm}>yes</button>
+            </dialog>
         </div>
     )
 }
