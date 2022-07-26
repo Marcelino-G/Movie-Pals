@@ -530,9 +530,9 @@ console.log(friend)
 console.log(friend.profile_picture)
   return (
 
-    <div>
+    <div className='bg-warning'>
       <Routes >
-        <Route className='container border border-3 border-danger h-100'  path='/profile' element={<UserProfile 
+        <Route   path='/profile' element={<UserProfile 
       profilePicture={userInfo['profile_picture']}
       userName={userInfo["user_name"]} 
       favoriteMovieTitle={favoriteMovie['movie_title']} 
@@ -579,40 +579,11 @@ console.log(friend.profile_picture)
     </div>
 )
 
-    // <div className='container border border-3 border-danger h-100'>
-    //   {formTrigger === true ? 
-    //   <UserProfile 
-    //   profilePicture={userInfo['profile_picture']}
-    //   userName={userInfo["user_name"]} 
-    //   favoriteMovieTitle={favoriteMovie['movie_title']} 
-    //   favoriteMovieImg={favoriteMovie['movie_img']} 
-    //   favoriteMovieDate={favoriteMovie['movie_date']}
-    //   onSubmit={handleSearchSubmit}
-    //   searchedMovieImg={searchedMovie['movie_img']}
-    //   searchedMovieTitle={searchedMovie['movie_title']}
-    //   searchedMovieDate={searchedMovie['movie_date']}
-    //   onClick={handleClickAdd}
-    //   addMovie={addMovie}
-    //   onChangeSearchInfo={handleChangeSearchInfo}
-    //   onChangeUserInfo={handleChangeUserInfo}
-    //   onFormSubmit={handleFormSubmit}
-    //   onClickRemove={handleClickRemoveList}
-    //   onHover={hoverRemove}
-    //   /> 
-    //   : 
-    //   <Form 
-    //   onChangeUserInfo={handleChangeUserInfo} 
-    //   value={userInfo} 
-    //   onFormSubmit={handleFormSubmit}
-    //   /> 
-    //   }
-    // </div>
-
     
 }
 
 main.render(
-<Router>
+<Router >
   <Parent/>
 </Router>)
 

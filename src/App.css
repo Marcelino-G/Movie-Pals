@@ -1,13 +1,30 @@
+dialog{
+
+
+    top: 35%;
+
+}
+
 img {
 
     max-width: 427px;
     max-height: 374px;
 }
 
-input[type='file'] {
+li{
+    list-style: none;
+}
+
+/* $position-values: (
+  0: 0,
+  50: 50%,
+  100: 100%
+); */
+
+/* input[type='file'] {
 
     color: rgba(0, 0, 0, 0)
-}
+} */
 
 #searched_movie{
 
