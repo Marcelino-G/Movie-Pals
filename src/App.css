@@ -11,8 +11,27 @@ img {
     max-height: 374px;
 }
 
+#recList{
+    min-height: 569px;
+}
+
+#searchContainer{
+    min-height: 358px;
+}
+
+#add_button{
+
+    max-height: 34px;
+}
+
 li{
     list-style: none;
+}
+
+#componentDiv{
+
+    width: 90%;
+
 }
 
 /* $position-values: (
@@ -77,8 +96,8 @@ li{
     visibility: hidden;
 }
 
-.back{
+/* .back{
     position: relative;
     z-index: -1;
     background-color: black;
-}
+} */

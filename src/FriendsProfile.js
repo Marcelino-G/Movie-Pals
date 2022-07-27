@@ -3,36 +3,41 @@ import './App.css';
 const FriendsProfile = (props) => {
 
   return (
-    <div className='row justify-content-around border border-info'>
+    <div className='border row justify-content-around mx-auto bg-success'>
 
-      <nav>
-        <ul>
-          <li onClick={props.onClickLogOut}>Log Out</li>
-          <li onClick={props.onClickProfile}>Home</li>
+      <nav className='border bg-danger'>
+        <ul className='border d-flex justify-content-end bg-success'>
+          <li className='border' onClick={props.onClickProfile}>Home</li>
+          <li className='border' onClick={props.onClickLogOut}>Log Out</li>
         </ul>
       </nav>
 
-      <section className='col-7 row justify-content-start border my-1'>
-        <span className='border col-12 fs-3'>{props.friendName}</span>
-        <img className='border col-7 img-fluid' alt="loading..." src={props.friendImg}/>
-        <section className='col-5 row justify-content-center border'>
-          <span className='col-12 text-center border mt-4' >Favorite Movie</span>
+      <section className='border col-6 row justify-content-evenly bg-primary'>
+
+        <div className='row col-6 border bg-warning'>
+          <span className='border text-center'>{props.friendName}</span>
+          <img className='border img-fluid' alt="loading..." src={props.friendImg}/>
+        </div>
+
+        
+        <section className='border col-4 row justify-content-start text-center bg-danger p-4'>
+          <span className='border col-8' >Favorite Movie</span>
           <img className="col-8 img-fluid border" alt="Loading..." src={props.friendFavoriteMovieImage} />
-          <span className='col-12 text-center border '>{props.friendFavoriteMovieTitle}</span>
-          <span className='col-12 text-center border mb-4'>{props.friendFavoriteMovieDate}</span>
+          <span className='col-8 '>{props.friendFavoriteMovieTitle}</span>
+          <span className='col-8'>{props.friendFavoriteMovieDate}</span>
         </section>
       </section>
 
-      <section className='col-4 border my-1' >
+      <section className='col-4 border bg-warning text-center' >
         <h1>Friends List</h1>
 
-        <ul>
+        <ul className='border row justify-content-evenly mx-auto'>
           {props.friendFriend.map((friend) => {
             
             
             return (
-              <li className='border' onClick={props.onClickFriend} id={friend[0].id} key={friend[0].id}>
-                <img className='back' alt="loading..." src={friend[0]['profile_picture']} />
+              <li className='border col-4 row justify-content-center' onClick={props.onClickFriend} id={friend[0].id} key={friend[0].id}>
+                <img className='back img-fluid' alt="loading..." src={friend[0]['profile_picture']} />
                 <span className='back' >{friend[0]['user_name']}</span>
               </li>
             )})}
@@ -41,15 +46,15 @@ const FriendsProfile = (props) => {
         
       </section>
 
-      <section className="col-7 row justify-content-center border my-1">
-        <p className='col-12 border' >{props.userName}'s Recommended movies</p>
-        <ul className='row justify-content-evenly border border-warning' id='addContainer'>
+      <section id='recList' className="col-7 border text-center bg-primary">
+        <p className=' border' >{props.userName}'s Recommended movies</p>
+        <ul className='row mx-auto justify-content-evenly border bg-warning' id='addContainer'>
           {props.recommended.map((item) => (
             
-            <li className='col-3 row no-gutters justify-content-center border border-danger listt overflow-auto' key={item["movie_id"]}>
-              <img className='col-9 img-fluid border p-0 movie_list' src={item['movie_img']}/>
-              <span className=' border text-center' >{item['movie_title']}</span>
-              <span className=' border text-center'>{item['movie_date']}</span>
+            <li className='col-3 row justify-content-center text-center border border-danger listt overflow-auto' key={item["movie_id"]}>
+              <img className='col-9 img-fluid border movie_list' src={item['movie_img']}/>
+              <span className=' border ' >{item['movie_title']}</span>
+              <span className=' border'>{item['movie_date']}</span>
             </li>)
           )}
         </ul>

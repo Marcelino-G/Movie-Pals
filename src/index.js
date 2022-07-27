@@ -525,12 +525,10 @@ const [friendFriend, setFriendFriend] = useState()
  }, [userInfo, favoriteMovie, addMovie, recommended])
 
 //  console.log(friendFavoriteMovie)
- 
-console.log(friend)
-console.log(friend.profile_picture)
+
   return (
 
-    <div className='bg-warning'>
+    <div id='componentDiv' className='bg-warning mx-auto border'>
       <Routes >
         <Route   path='/profile' element={<UserProfile 
       profilePicture={userInfo['profile_picture']}
