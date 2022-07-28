@@ -213,8 +213,10 @@ const Parent = () => {
 
   }
 
+  
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    setFriendFriend([friendsData[1]])
     let z = document.getElementById("confirm")
     z.showModal()
     try {
@@ -227,7 +229,7 @@ const Parent = () => {
           id: userInfo['api_key'],
           friends: ['2']
         })
-
+        
         // ({
         //   ...userInfo,
         //   id: userInfo['api_key']
@@ -255,13 +257,25 @@ const Parent = () => {
     }
   }
 
+  const handleOnClickDeny = () => {
+    setUserInfo({})
+    let m = document.getElementsByTagName('input')
+    for(let i = 0; 4 > i; i++){
+      m[i].value = ""
+    }
+    let z = document.getElementById("confirm")
+    z.close();
+    return
+  }
+
+
   const handleOnClickConfirm = async () => {
 
     setUserData(prev => [
       prev[0], {
         user_name: prev[1]['user_name'], 
       favorite_movie: prev[1]['favorite_movie'], 
-      profile_picture: prev[1]['profile_pic'], 
+      profile_picture: prev[1]['profile_picture'], 
       id: prev[1]['id'],
       recommended_movies: prev[1]['recommended_movies'],
       friends: [prev[1]['friends'][0], userInfo['id']]
@@ -270,11 +284,15 @@ const Parent = () => {
       
     ])
 
+    
+
+
   
     await fetchh(userInfo['favorite_movie'], setFavoriteMovie);
     navigate('/profile')
     
   }
+  
   
 
   const handleSearchSubmit = (e) => {
@@ -346,11 +364,13 @@ const Parent = () => {
     setAddMovie([])
     setSearchMovie()
     setFriend("")
+    setFriendFriend()
     setUserData(friendsData)
     navigate("/")
   }
 
   const handleClickProfile = () => {
+    // setFriendFriend([friendsData[1]])
     navigate("/profile")
   }
 
@@ -397,7 +417,8 @@ const Parent = () => {
   
 //  console.log(userData)
 const [friendFriend, setFriendFriend] = useState()
-
+// console.log(friendFriend)
+// console.log(userData)
   const handleOnClickFriend = async (e) => {
 
     
@@ -421,7 +442,7 @@ const [friendFriend, setFriendFriend] = useState()
       return userData.filter((found) => found['id'] === friend)
       })
     
-    console.log(found)
+    // console.log(found)
     setFriendFriend(friends)
     // console.log(friends)
 
@@ -454,6 +475,8 @@ const [friendFriend, setFriendFriend] = useState()
     
     navigate("/friend")
   }
+
+  // console.log(friend)
 
 
   
@@ -503,7 +526,7 @@ const [friendFriend, setFriendFriend] = useState()
   setRecommended(JSON.parse(window.localStorage.getItem('recommended')))
   setFriendFavoriteMovie(JSON.parse(window.localStorage.getItem('friendsFavorite')))
   setFriendFavoriteMovie(JSON.parse(window.localStorage.getItem('userData')))
-  setFriendFriend(JSON.parse(window.localStorage.getItem('friendFriend')))
+  // setFriendFriend(JSON.parse(window.localStorage.getItem('friendFriend')))
   // console.log(window.localStorage.getItem('info'))
   // console.log(window.localStorage.getItem('fav'))
   // console.log(window.localStorage.getItem('movies'))
@@ -520,7 +543,7 @@ const [friendFriend, setFriendFriend] = useState()
   window.localStorage.setItem('recommended', JSON.stringify(recommended))
   window.localStorage.setItem('friendsFavorite', JSON.stringify(friendFavoriteMovie))
   window.localStorage.setItem('userData', JSON.stringify(userData))
-  window.localStorage.setItem('friendFriend', JSON.stringify(friendFriend))
+  // window.localStorage.setItem('friendFriend', JSON.stringify(friendFriend))
 
  }, [userInfo, favoriteMovie, addMovie, recommended])
 
@@ -552,6 +575,10 @@ const [friendFriend, setFriendFriend] = useState()
       onClickRemove={handleClickRemove}
       onClickLogOut={handleOnClickLogOut}
       onClickFriend={handleOnClickFriend}
+      friendId={friendsData[1].id}
+      friendPic={friendsData[1].profile_picture}
+      friendName={friendsData[1].user_name}
+      // friendFriend={friendFriend}
       /> } />
         <Route path='/' element={<Form 
       onChangeUserInfo={handleChangeUserInfo} 
@@ -560,10 +587,11 @@ const [friendFriend, setFriendFriend] = useState()
       userName={userInfo['user_name']}
       favoriteMovie={userInfo['favorite_movie']}
       onClickConfirm={handleOnClickConfirm}
+      onClickDeny={handleOnClickDeny}
       /> }/>
         <Route path='/friend' element={<FriendsProfile 
         friendName={friend['user_name']} 
-        friendImg={friend.profile_picture}
+        friendImg={friend['profile_picture']}
         friendFavoriteMovieImage={friendFavoriteMovie['movie_img']}
         onClickLogOut={handleOnClickLogOut}
         recommended={recommended}

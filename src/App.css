@@ -1,78 +1,44 @@
-dialog{
-
-
-    top: 35%;
-
-}
-
-img {
-
-    max-width: 427px;
-    max-height: 374px;
-}
-
-#recList{
-    min-height: 569px;
-}
-
-#searchContainer{
-    min-height: 358px;
-}
-
-#add_button{
-
-    max-height: 34px;
-}
-
-li{
-    list-style: none;
-}
-
-#componentDiv{
-
-    width: 90%;
-
-}
-
-/* $position-values: (
-  0: 0,
-  50: 50%,
-  100: 100%
-); */
 
 /* input[type='file'] {
 
     color: rgba(0, 0, 0, 0)
 } */
 
-#searched_movie{
+/* .back{
+    position: relative;
+    z-index: -1;
+    background-color: black;
+} */
 
-    max-width: 219px;
-    max-height: 269px;
+
+
+
+
+
+
+
+
+
+
+
+
+#componentDiv{
+
+    width: 90%;
 }
 
-.movie_list{
-
-    min-width: 109px;
-    min-height: 152px;
-    max-height: 153px;
+dialog{
+    top: 35%;
 }
 
-#search_section{
-
-    max-width: 436px;
-    max-height: 437px;
+li{
+    list-style: none;
 }
 
-#recommended_section{
-
-    max-height: 437px;
+nav ul li{
+    cursor: pointer;
 }
 
-.listt{
-
-    max-height: 270px;
-}
 
 #logo{
 
@@ -92,12 +58,68 @@ li{
     }
 }
 
+#userInfoContainer{
+
+    max-height: 352px;
+}
+
+#userFavoriteMovieDisplayed{
+
+    max-height: 187px;
+    max-width: 149px;
+}
+
+#profile_picDisplayed{
+
+    min-height: 296px;
+    max-height: 297px;
+    min-width: 382px;
+    max-width: 383px;
+
+}
+
+.friendListImg{
+    min-height: 113px;
+}
+
+.friendClick{
+    cursor: pointer;
+}
+
+#search_section{
+
+    max-width: 436px;
+    max-height: 480px;
+    min-height: 479px;
+}
+
+#searchContainer{
+    min-height: 379px;
+    max-height: 380px;
+}
+
+#searched_movie{
+
+    max-width: 219px;
+    max-height: 270px;
+    min-height: 269px;
+}
+
+#add_button{
+    max-height: 31.5px;
+}
+
+#recSection{
+    min-height: 569px;
+}
+
+.recImg {
+
+    max-width: 153px;
+    min-height: 194px;
+    max-height: 195px;
+}
+
 .removeBtn{
     visibility: hidden;
 }
-
-/* .back{
-    position: relative;
-    z-index: -1;
-    background-color: black;
-} */

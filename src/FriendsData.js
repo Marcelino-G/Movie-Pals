@@ -1,9 +1,11 @@
+import friend_pic_1 from './friend_pic_1.png'
+import friend_pic_2 from './friend_pic_2.png'
 
 let friendsData = [
 
   {user_name: "Charlie", 
   favorite_movie: "rocky", 
-  profile_picture:"#", 
+  profile_picture: friend_pic_1, 
   id: "1",
   recommended_movies: [
     'the exorcist', 
@@ -20,7 +22,7 @@ let friendsData = [
 
 {user_name: "Billy", 
   favorite_movie: "alita battle angel", 
-  profile_picture:"#", 
+  profile_picture: friend_pic_2, 
   id: "2",
   recommended_movies: [
     'blade runner', 
