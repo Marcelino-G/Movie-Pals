@@ -1,5 +1,10 @@
+body{
+    background-color: rgb(223, 240, 255);
+}
+
 #componentDiv{
     width: 90%;
+    margin: .5rem 0;
 }
 
 #loading{
@@ -7,6 +12,42 @@
     opacity: .75;
     background-color: #bba0a0;
 }
+
+
+
+
+
+#formContainer, #componentDiv{
+    border: solid rgb(69, 129, 182) 3px ;
+}
+
+#actualForm, #userSection{
+    border: solid rgb(69, 129, 182) 2px ;
+}
+
+#userSection form{
+    border: solid rgb(69, 129, 182) 1px ;
+}
+
+#moviePals, section, #userNameImgContainer{
+    background-color: rgb(69, 129, 182);
+}
+
+input{
+    box-shadow: 0 .5px 1.5px .50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 #logo{
     max-width: 700px;
@@ -35,11 +76,15 @@ li{
     list-style: none;
 }
 
-nav ul li{
+/* nav ul li button{
     cursor: pointer;
+} */
+
+nav ul {
+    top: 25%;
 }
 
-#userInfoContainer{
+#userNameImgContainer{
     max-height: 352px;
 }
 

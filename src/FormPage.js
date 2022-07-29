@@ -4,11 +4,11 @@ import logo from './Logo.png'
 const FormPage = (props) => {
 
     return (
-        <div className='position-absolute top-50 start-50 translate-middle bg-success row p-3'>
-            <div className='col row justify-content-center mx-auto bg-warning p-2'>
-                <h1 className='fst-italic bg-primary'>Movie Pals</h1>
+        <div id='formContainer' className='position-absolute top-50 start-50 translate-middle row p-3 bg-white rounded'>
+            <div id='actualForm' className='col row justify-content-center mx-auto p-2 rounded'>
+                <h1 id='moviePals' className='fst-italic rounded-top text-light'>Movie Pals</h1>
 
-                <form onSubmit={props.onFormSubmit} className=" row bg-danger justify-content-center p-2">
+                <form onSubmit={props.onFormSubmit} className=" row justify-content-center p-2">
                     <div className=' row my-1'>
                         <label className=''>User Name</label>
                         <input className='' type="text" id="user_name" required onChange={props.onChangeUserInfo}></input>
@@ -32,7 +32,7 @@ const FormPage = (props) => {
                                 </ul>
                             </div>
                         </details>
-                        <input className='' type="password" id="api_key" required onChange={props.onChangeUserInfo}></input>
+                        {/* <input className='' type="password" id="api_key" required onChange={props.onChangeUserInfo}></input> */}
                     </div>
 
                     <div className='row my-1'>
@@ -47,7 +47,7 @@ const FormPage = (props) => {
             <img id="logo" className=' col-5 img-fluid' src={logo} />
 
             
-            <dialog className=' w-25 bg-warning' id="confirm" >
+            <dialog className=' w-25 bg-warning' id="dialog" >
                 <p className='fw-semibold '>Is this correct?</p>
                 <ul className=' bg-danger row mx-auto '>
                     <li className=' col-5 border ms-2 text-center'>
