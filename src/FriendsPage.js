@@ -1,6 +1,6 @@
 import './App.css';
 
-const FriendsProfile = (props) => {
+const FriendsPage = (props) => {
 
   return (
     <div className='border row justify-content-around mx-auto bg-success py-3 gy-3'>
@@ -40,9 +40,9 @@ const FriendsProfile = (props) => {
               
               
               return (
-                <li className='border col-4 row justify-content-center friendClick' onClick={props.onClickFriend} id={friend[0].id} key={friend[0].id}>
-                  <img className='back img-fluid friendListImg' alt="loading..." src={friend[0]['profile_picture']} />
-                  <span className='back text-capitalize fst-italic fw-semibold' >{friend[0]['user_name']}</span>
+                <li className={`border col-4 row justify-content-center friendClick ${friend[0].id}`} onClick={props.onClickFriend} id={friend[0].id} key={friend[0].id}>
+                  <img className={`back img-fluid friendListImg ${friend[0].id}`} alt="loading..." src={friend[0]['profile_picture']} />
+                  <span className={`back text-capitalize fst-italic fw-semibold ${friend[0].id}`} >{friend[0]['user_name']}</span>
                 </li>
               )})}
           </ul>
@@ -74,4 +74,4 @@ const FriendsProfile = (props) => {
   );
 }
 
-export default FriendsProfile;
+export default FriendsPage;

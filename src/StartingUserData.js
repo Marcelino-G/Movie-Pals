@@ -1,7 +1,7 @@
 import friend_pic_1 from './friend_pic_1.png'
 import friend_pic_2 from './friend_pic_2.png'
 
-let friendsData = [
+let startingUserData = [
 
   {user_name: "Charlie", 
   favorite_movie: "rocky", 
@@ -9,7 +9,7 @@ let friendsData = [
   id: "1",
   recommended_movies: [
     'the exorcist', 
-    'taxi driver', 
+    // 'taxi driver', 
     // 'the lord of the rings: fellowship', 
     // 'hereditary', 
     // 'napoleon dynamite',
@@ -26,8 +26,8 @@ let friendsData = [
   id: "2",
   recommended_movies: [
     'blade runner', 
-    'joker', 
-    'mid sommar', 
+    // 'joker', 
+    // 'mid sommar', 
     // 'parasite', 
     // 'eternal sunshine of the spotless mind',
     // '28 days later',
@@ -42,4 +42,4 @@ let friendsData = [
 
 ]
 
-export default friendsData
+export default startingUserData

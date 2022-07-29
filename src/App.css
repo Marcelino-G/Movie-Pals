@@ -1,47 +1,16 @@
-
-/* input[type='file'] {
-
-    color: rgba(0, 0, 0, 0)
-} */
-
-/* .back{
-    position: relative;
-    z-index: -1;
-    background-color: black;
-} */
-
-
-
-
-
-
-
-
-
-
-
-
-
 #componentDiv{
-
     width: 90%;
 }
 
-dialog{
-    top: 35%;
+#loading{
+    z-index: 2;
+    opacity: .75;
+    background-color: #bba0a0;
 }
-
-li{
-    list-style: none;
-}
-
-nav ul li{
-    cursor: pointer;
-}
-
 
 #logo{
-
+    max-width: 700px;
+    max-height: 700px;
     animation-duration: 5s;
     animation-name: spinn;
     animation-iteration-count: infinite;
@@ -58,24 +27,32 @@ nav ul li{
     }
 }
 
-#userInfoContainer{
+dialog{
+    top: 35%;
+}
 
+li{
+    list-style: none;
+}
+
+nav ul li{
+    cursor: pointer;
+}
+
+#userInfoContainer{
     max-height: 352px;
 }
 
 #userFavoriteMovieDisplayed{
-
     max-height: 187px;
     max-width: 149px;
 }
 
 #profile_picDisplayed{
-
     min-height: 296px;
     max-height: 297px;
     min-width: 382px;
     max-width: 383px;
-
 }
 
 .friendListImg{
@@ -87,7 +64,6 @@ nav ul li{
 }
 
 #search_section{
-
     max-width: 436px;
     max-height: 480px;
     min-height: 479px;
@@ -99,7 +75,6 @@ nav ul li{
 }
 
 #searched_movie{
-
     max-width: 219px;
     max-height: 270px;
     min-height: 269px;
@@ -114,7 +89,6 @@ nav ul li{
 }
 
 .recImg {
-
     max-width: 153px;
     min-height: 194px;
     max-height: 195px;

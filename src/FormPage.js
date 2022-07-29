@@ -1,12 +1,10 @@
-import React, {useState} from 'react';
 import './App.css';
-import Logo from './Logo.png'
+import logo from './Logo.png'
 
-const Form = (props) => {
+const FormPage = (props) => {
 
     return (
         <div className='position-absolute top-50 start-50 translate-middle bg-success row p-3'>
-            
             <div className='col row justify-content-center mx-auto bg-warning p-2'>
                 <h1 className='fst-italic bg-primary'>Movie Pals</h1>
 
@@ -46,7 +44,7 @@ const Form = (props) => {
                 </form>
                 
             </div>
-            <img id="logo" className=' col-5 img-fluid' src={Logo} />
+            <img id="logo" className=' col-5 img-fluid' src={logo} />
 
             
             <dialog className=' w-25 bg-warning' id="confirm" >
@@ -70,4 +68,4 @@ const Form = (props) => {
     )
 }
 
-export default Form;
+export default FormPage;

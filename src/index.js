@@ -1,18 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom/client';
-import UserProfile from './UserProfile';
-import Form from './Form'
-import friendsData from './FriendsData';
-import FriendsProfile from './FriendsProfile';
+import HomePage from './HomePage';
+import LoadingPage from './LoadingPage';
+import FormPage from './FormPage'
+import FriendsPage from './FriendsPage';
+import startingUserData from './StartingUserData';
 import {Routes, Route, useNavigate, BrowserRouter as Router} from 'react-router-dom'
-
+import default_user_pic from './default_user_pic.png'
 
 const main = ReactDOM.createRoot(document.getElementById('main'));
 
 const Parent = () => {
 
-  // console.log(friendsData)
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false)
 
   const [userInfo, setUserInfo] = useState({
     user_name: "",
@@ -26,6 +28,10 @@ const Parent = () => {
     movie_date: "",
     movie_img: "#"
   });
+  const [userData, setUserData] = useState(startingUserData)
+
+  const [searchTrigger, setSearchTrigger] = useState(false)
+  const [searchMovie, setSearchMovie] = useState("#")
   const [searchedMovie, setSearchedMovie] = useState({
     movie_title: "",
     movie_date: "",
@@ -34,30 +40,26 @@ const Parent = () => {
   })
   const [addMovie, setAddMovie] = useState([])
 
-  
-  
-  const [searchMovie, setSearchMovie] = useState("#")
-  const [searchTrigger, setSearchTrigger] = useState(false)
-
-  const [recommended, setRecommended] = useState([])
-  const [friendSwitch, setFriendSwitch] = useState(false)
   const [friend, setFriend] = useState("")
   const [friendFavoriteMovie, setFriendFavoriteMovie] = useState({
     movie_title: "",
     movie_date: "",
     movie_img: "#"
   })
+  const [friendFriend, setFriendFriend] = useState()
+  const [recommended, setRecommended] = useState([])
   
-
   useEffect(() => {
-
+    
     const searchUseEffect = async() => {
     
       try {
         
         if (searchTrigger === true){
+          setLoading(true)
           await fetchh(searchMovie, setSearchedMovie)
           setSearchTrigger(false)
+          setLoading(false)
         }
 
       } catch (error) {
@@ -136,11 +138,11 @@ const Parent = () => {
 
   
 
-  const handleChangeSearchInfo = (e) => {
+  const handleChangeSearchMovie = (e) => {
     setSearchMovie(e.target.value)
   }
 
-  const [userData, setUserData] = useState(friendsData)
+  
   // console.log(userData)
 
   const handleChangeFavSubmit = async (e) => {
@@ -188,6 +190,20 @@ const Parent = () => {
         friends: userInfo['friends'],
         profile_picture: pictureFile
       })
+
+      setUserData(prev => [
+        prev[0], prev[1], 
+        {
+          user_name: prev[2]['user_name'],
+          favorite_movie: prev[2]['favorite_movie'], 
+          profile_picture : pictureFile, 
+          id: prev[2]['id'],
+          recommended_movies: prev[2]['recommended_movies'],
+          friends: prev[2]['friends']
+        }
+
+      ]
+      )
     }
 
     
@@ -195,28 +211,28 @@ const Parent = () => {
 
   }
 
-  const handleOnSubmitProfilePic = (e) => {
-    e.preventDefault();
+  // const handleOnSubmitProfilePic = (e) => {
+  //   e.preventDefault();
 
-    setUserData(prev => [
-      prev[0], {
-        user_name: prev[1]['user_name'], 
-      favorite_movie: prev[1]['favorite_movie'], 
-      profile_picture :prev[1]['profile_pic'], 
-      id: prev[1]['id'],
-      recommended_movies: prev[1]['recommended_movies'],
-      friends: [prev[1]['friends'][0], userInfo['id']]
-    },
-      userInfo
+  //   setUserData(prev => [
+  //     prev[0], {
+  //       user_name: prev[1]['user_name'], 
+  //     favorite_movie: prev[1]['favorite_movie'], 
+  //     profile_picture :prev[1]['profile_pic'], 
+  //     id: prev[1]['id'],
+  //     recommended_movies: prev[1]['recommended_movies'],
+  //     friends: [prev[1]['friends'][0], userInfo['id']]
+  //   },
+  //     userInfo
       
-    ])
+  //   ])
 
-  }
+  // }
 
   
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    setFriendFriend([friendsData[1]])
+    // setFriendFriend([friendsData[1]])
     let z = document.getElementById("confirm")
     z.showModal()
     try {
@@ -271,6 +287,12 @@ const Parent = () => {
 
   const handleOnClickConfirm = async () => {
 
+    try {
+      
+      setLoading(true)
+    let z = document.getElementById("confirm")
+    z.close();
+
     setUserData(prev => [
       prev[0], {
         user_name: prev[1]['user_name'], 
@@ -290,6 +312,15 @@ const Parent = () => {
   
     await fetchh(userInfo['favorite_movie'], setFavoriteMovie);
     navigate('/profile')
+
+    setLoading(false)
+
+    } catch (error) {
+      setLoading(false)
+      alert(error)
+    }
+
+    
     
   }
   
@@ -365,7 +396,7 @@ const Parent = () => {
     setSearchMovie()
     setFriend("")
     setFriendFriend()
-    setUserData(friendsData)
+    setUserData(startingUserData)
     navigate("/")
   }
 
@@ -416,15 +447,24 @@ const Parent = () => {
 
   
 //  console.log(userData)
-const [friendFriend, setFriendFriend] = useState()
+  
 // console.log(friendFriend)
 // console.log(userData)
   const handleOnClickFriend = async (e) => {
 
+    try {
+
+      setLoading(true)
     
-    if(e.target.id === friend['id']){
+    if(e.target.classList[e.target.classList.length - 1] === friend['id']){
       console.log("boop")
+
+      let k = friendFriend.find((userMain) => userMain[0].id === userInfo['id'])
+      console.log(k)
+
+      
       navigate("/friend")
+      setLoading(false)
       return
     }
 
@@ -434,7 +474,7 @@ const [friendFriend, setFriendFriend] = useState()
 
 
     // let found = friendsData.find((friend) => friend.id === e.target.id)
-    let found = userData.find((friend) => friend.id === e.target.id)
+    let found = userData.find((friend) => friend.id === e.target.classList[e.target.classList.length - 1])
     // console.log(found)
     // console.log(found.friends)
 
@@ -474,6 +514,14 @@ const [friendFriend, setFriendFriend] = useState()
     
     
     navigate("/friend")
+    setLoading(false)
+      
+    } catch (error) {
+      setLoading(false)
+      alert(error)
+    }
+
+    
   }
 
   // console.log(friend)
@@ -519,68 +567,69 @@ const [friendFriend, setFriendFriend] = useState()
 
 
 
- useEffect(() => {
-  setUserInfo(JSON.parse(window.localStorage.getItem('info')))
-  setFavoriteMovie(JSON.parse(window.localStorage.getItem('fav')))
-  setAddMovie(JSON.parse(window.localStorage.getItem('movies')))
-  setRecommended(JSON.parse(window.localStorage.getItem('recommended')))
-  setFriendFavoriteMovie(JSON.parse(window.localStorage.getItem('friendsFavorite')))
-  setFriendFavoriteMovie(JSON.parse(window.localStorage.getItem('userData')))
-  // setFriendFriend(JSON.parse(window.localStorage.getItem('friendFriend')))
-  // console.log(window.localStorage.getItem('info'))
-  // console.log(window.localStorage.getItem('fav'))
-  // console.log(window.localStorage.getItem('movies'))
+  useEffect(() => {
+
+    setUserInfo(JSON.parse(window.localStorage.getItem('info')))
+    setFavoriteMovie(JSON.parse(window.localStorage.getItem('fav')))
+    setAddMovie(JSON.parse(window.localStorage.getItem('movies')))
+    setRecommended(JSON.parse(window.localStorage.getItem('recommended')))
+    setFriendFavoriteMovie(JSON.parse(window.localStorage.getItem('friendsFavorite')))
+    setFriendFavoriteMovie(JSON.parse(window.localStorage.getItem('userData')))
+    // setFriendFriend(JSON.parse(window.localStorage.getItem('friendFriend')))
+    
+  }, [])
+
+  useEffect(() => {
+
+    
+    
+    window.localStorage.setItem('info', JSON.stringify(userInfo))
+    window.localStorage.setItem('fav', JSON.stringify(favoriteMovie))
+    window.localStorage.setItem('movies', JSON.stringify(addMovie))
+    window.localStorage.setItem('recommended', JSON.stringify(recommended))
+    window.localStorage.setItem('friendsFavorite', JSON.stringify(friendFavoriteMovie))
+    window.localStorage.setItem('userData', JSON.stringify(userData))
+    window.localStorage.setItem('friendFriend', JSON.stringify(friendFriend))
+
+  }, [userInfo, favoriteMovie, addMovie, recommended, friendFriend])
+
+  //  console.log(friendFavoriteMovie)
   
- }, [])
-
- useEffect(() => {
-
-  
-  
-  window.localStorage.setItem('info', JSON.stringify(userInfo))
-  window.localStorage.setItem('fav', JSON.stringify(favoriteMovie))
-  window.localStorage.setItem('movies', JSON.stringify(addMovie))
-  window.localStorage.setItem('recommended', JSON.stringify(recommended))
-  window.localStorage.setItem('friendsFavorite', JSON.stringify(friendFavoriteMovie))
-  window.localStorage.setItem('userData', JSON.stringify(userData))
-  // window.localStorage.setItem('friendFriend', JSON.stringify(friendFriend))
-
- }, [userInfo, favoriteMovie, addMovie, recommended])
-
-//  console.log(friendFavoriteMovie)
 
   return (
 
-    <div id='componentDiv' className='bg-warning mx-auto border'>
+    <div id='componentDiv' className='bg-danger mx-auto border'>
+      {loading === true? <LoadingPage/> : null}
       <Routes >
-        <Route   path='/profile' element={<UserProfile 
+        <Route   path='/profile' element={<HomePage 
       profilePicture={userInfo['profile_picture']}
       userName={userInfo["user_name"]} 
       favoriteMovieTitle={favoriteMovie['movie_title']} 
       favoriteMovieImg={favoriteMovie['movie_img']} 
       favoriteMovieDate={favoriteMovie['movie_date']}
-      onSubmit={handleSearchSubmit}
+      
       searchedMovieImg={searchedMovie['movie_img']}
       searchedMovieTitle={searchedMovie['movie_title']}
       searchedMovieDate={searchedMovie['movie_date']}
-      onClick={handleClickAdd}
-      addMovie={addMovie}
-      onChangeSearchInfo={handleChangeSearchInfo}
-      onChangeUserInfo={handleChangeUserInfo}
+      onClickAddMovie={handleClickAdd}
+      addMovieArray={addMovie}
+      onChangeSearchMovie={handleChangeSearchMovie}
+      onSearchSubmit={handleSearchSubmit}
+      // onChangeUserInfo={handleChangeUserInfo}
       onChangeProfilePic={handleOnChangeProfilePic}
-      onSubmitProfilePic={handleOnSubmitProfilePic}
+      // onSubmitProfilePic={handleOnSubmitProfilePic}
       onChangeFavSubmit={handleChangeFavSubmit}
       onPointerEnter={handleOnPointerEnter}
       onPointerLeave={handleOnPointerLeave}
       onClickRemove={handleClickRemove}
       onClickLogOut={handleOnClickLogOut}
       onClickFriend={handleOnClickFriend}
-      friendId={friendsData[1].id}
-      friendPic={friendsData[1].profile_picture}
-      friendName={friendsData[1].user_name}
+      friendId={startingUserData[1].id}
+      friendPic={startingUserData[1].profile_picture}
+      friendName={startingUserData[1].user_name}
       // friendFriend={friendFriend}
       /> } />
-        <Route path='/' element={<Form 
+        <Route path='/' element={<FormPage 
       onChangeUserInfo={handleChangeUserInfo} 
       value={userInfo} 
       onFormSubmit={handleFormSubmit}
@@ -589,7 +638,7 @@ const [friendFriend, setFriendFriend] = useState()
       onClickConfirm={handleOnClickConfirm}
       onClickDeny={handleOnClickDeny}
       /> }/>
-        <Route path='/friend' element={<FriendsProfile 
+        <Route path='/friend' element={<FriendsPage 
         friendName={friend['user_name']} 
         friendImg={friend['profile_picture']}
         friendFavoriteMovieImage={friendFavoriteMovie['movie_img']}

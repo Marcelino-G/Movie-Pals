@@ -1,8 +1,7 @@
-import React, {useEffect} from 'react';
 import './App.css';
 import default_user_pic from './default_user_pic.png'
 
-const UserProfile = (props) => {
+const HomePage = (props) => {
 
   return (
     <div className='border row justify-content-around mx-auto bg-success py-3 gy-3'>
@@ -54,14 +53,14 @@ const UserProfile = (props) => {
 
 
 
-
+      
       <section className='col-4 border bg-warning text-center py-3' >
         <h2 className='border'>Friends List</h2>
         <section className=''>
           <ul className='border row justify-content-evenly mx-auto'>
-            <li className='border col-4 row justify-content-center friendClick' onClick={props.onClickFriend} id={props.friendId} key={props.friendId}>
-              <img className='back img-fluid' alt="loading..." src={props.friendPic} />
-              <span className='back text-capitalize fst-italic fw-semibold'>{props.friendName}</span>
+            <li className= {`border col-4 row justify-content-center friendClick ${props.friendId}`} onClick={props.onClickFriend} id={props.friendId} key={props.friendId}>
+              <img className={`img-fluid ${props.friendId}`} alt="loading..." src={props.friendPic} />
+              <span className={`text-capitalize fst-italic fw-semibold ${props.friendId}`}>{props.friendName}</span>
             </li>
           </ul>
         </section>
@@ -70,12 +69,12 @@ const UserProfile = (props) => {
 
       <section id="search_section" className='col-4 row justify-content-center border text-center bg-danger my-3'>
         <h2 className='border my-2 fw-bold fs-5' >Search Movies</h2>
-        <form className="row justify-content-between border " onSubmit={props.onSubmit}>
-          <input id='search' className='col-8' type="search"  onChange={props.onChangeSearchInfo} required></input>
+        <form className="row justify-content-between border " onSubmit={props.onSearchSubmit}>
+          <input id='search' className='col-8' type="search"  onChange={props.onChangeSearchMovie} required></input>
           <input className='col-3' type="submit" value="Search"></input>
         </form>
         <section className="bg-primary row justify-content-center border py-2 my-1 fw-semibold" id="searchContainer">
-          <button id='add_button' className='col-6 mb-2' onClick={props.onClick}>ADD</button>
+          <button id='add_button' className='col-6 mb-2' onClick={props.onClickAddMovie}>ADD</button>
           <img id='searched_movie' className='col-7 img-fluid' src={props.searchedMovieImg} alt="" />
           <span className=' ' >{props.searchedMovieTitle}</span>
           <span className='' >{props.searchedMovieDate}</span>
@@ -95,7 +94,7 @@ const UserProfile = (props) => {
         
         <section className='border'>
           <ul className='row mx-auto justify-content-evenly fw-semibold bg-warning' id='addContainer'>
-            {props.addMovie.map((item) => (
+            {props.addMovieArray.map((item) => (
               
               <li  onPointerEnter={props.onPointerEnter} onPointerLeave={props.onPointerLeave} className='col-3 row gy-1 justify-content-center text-center border border-danger ' key={item["movie_id"]}>
                 <button onClick={props.onClickRemove} className='removeBtn col-6' id={item["movie_id"]} >Remove</button>
@@ -112,4 +111,4 @@ const UserProfile = (props) => {
   );
 }
 
-export default UserProfile;
+export default HomePage;
