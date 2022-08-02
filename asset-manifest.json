@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/Movie-Pals/static/css/main.77e9cc55.css",
+    "main.js": "/Movie-Pals/static/js/main.01b30fe5.js",
+    "static/media/default_user_pic.png": "/Movie-Pals/static/media/default_user_pic.600aae8f15dafdbc1a03.png",
+    "static/media/Logo.png": "/Movie-Pals/static/media/Logo.d0bbc2a95a4c121d714d.png",
+    "static/media/friend_pic_2.png": "/Movie-Pals/static/media/friend_pic_2.3f338bd0e865aa01cfbd.png",
+    "static/media/friend_pic_1.png": "/Movie-Pals/static/media/friend_pic_1.b7c67f627bd51199221d.png",
+    "index.html": "/Movie-Pals/index.html",
+    "main.77e9cc55.css.map": "/Movie-Pals/static/css/main.77e9cc55.css.map",
+    "main.01b30fe5.js.map": "/Movie-Pals/static/js/main.01b30fe5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.77e9cc55.css",
+    "static/js/main.01b30fe5.js"
+  ]
+}
