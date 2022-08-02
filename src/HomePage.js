@@ -9,12 +9,12 @@ const HomePage = (props) => {
 
       <div id='moviePals' className='col-10 row justify-content-between mt-3 rounded-top'>
         <h1 className='fst-italic col-6 text-light'>Movie Pals</h1>
-        <nav className='col-3'>
+        <nav className='col-lg-5 col-xl-4'>
           <ul className='row justify-content-between text-center fs-5 position-relative'>
             <li className='col-5 row' >
               <button onClick={props.onClickHome}>Home</button>
             </li>
-            <li className='col-6 row ' >
+            <li className='col-6 row' >
               <button onClick={props.onClickLogOut}>Log Out</button>
             </li>
           </ul>
@@ -27,9 +27,9 @@ const HomePage = (props) => {
 
         <div id='userNameImgContainer' className='row justify-content-center col-6 rounded'>
           <h2 className='row'>
-            <span className='text-capitalize fst-italic fw-semibold'>{props.userName}</span>
+            <span className='text-capitalize fst-italic fw-semibold'>Loading</span>
           </h2>
-          <img id='profile_picDisplayed' className='border img-fluid pb-2 rounded-circle' alt="Loading.." src={props.profilePicture}/>
+          <img id='profile_picDisplayed' className='border border-2 img-fluid pb-2 rounded-circle' alt="Loading.." src={default_user_pic}/>
         </div>
 
         <section className='col-4 row justify-content-start p-4 fw-semibold border-0 bg-white'>
@@ -41,15 +41,15 @@ const HomePage = (props) => {
 
         
         <form className='col-5 rounded' onSubmit={props.onSubmitProfilePic}>
-          <label className='border mb-1' htmlFor="profile_picture" >Change Profile Picture?</label>
-          <input className='border col-8 ' accept='image/*' type="file" id="profile_picture" onChange={props.onChangeProfilePic}></input>
-          <input className='border col-3 offset-1' type="submit"></input>
+          <label className=' mb-1' htmlFor="profile_picture" >Change Profile Picture?</label>
+          <input className='col-lg-12  ' accept='image/*' type="file" id="profile_picture" onChange={props.onChangeProfilePic}></input>
+          <input className='col-lg-10 col-xl-8 col-xxl-6 my-lg-2 ' type="submit"></input>
         </form>
 
         <form className='col-5 rounded' onSubmit={props.onChangeFavSubmit}>
-          <label className='col-12 mb-1'>Change Favorite Movie?</label>
-          <input className='col-8' type="search" id="favorite_movie" required></input>
-          <input className='col-3 offset-1' type="submit"></input>
+          <label className='mb-1'>Change Favorite Movie?</label>
+          <input className='col-12' type="search" id="favorite_movie" required></input>
+          <input className='col-lg-10 col-xl-8 col-xxl-6 my-lg-2' type="submit"></input>
         </form>
         
       </section>
@@ -62,7 +62,7 @@ const HomePage = (props) => {
         <h2 className=''>Friends List</h2>
         <section className='border-0'>
           <ul className='row justify-content-evenly mx-auto'>
-            <li className= {`border col-4 row justify-content-center friendClick rounded rounded-4 bg-white ${props.friendId}`} onClick={props.onClickFriend} id={props.friendId} key={props.friendId}>
+            <li className= {`border col-lg-5 col-xl-4 row justify-content-center friendClick rounded rounded-4 bg-white ${props.friendId}`} onClick={props.onClickFriend} id={props.friendId} key={props.friendId}>
               <img className={`img-fluid ${props.friendId}`} alt="loading..." src={props.friendPic} />
               <span className={`text-capitalize fst-italic fw-semibold ${props.friendId}`}>{props.friendName}</span>
             </li>
@@ -75,7 +75,7 @@ const HomePage = (props) => {
         <h2 className='my-2 fw-bold fs-5' >Search Movies</h2>
         <form className="row justify-content-between" onSubmit={props.onSearchSubmit}>
           <input id='search' className='col-8' type="search"  onChange={props.onChangeSearchMovie} required></input>
-          <input className='col-3' type="submit" value="Search"></input>
+          <input className='col-lg-4 col-xl-3' type="submit" value="Search"></input>
         </form>
         <section className="row justify-content-center py-2 my-1 fw-semibold" id="searchContainer">
           <button id='add_button' className='col-6 mb-2' onClick={props.onClickAddMovie}>ADD</button>

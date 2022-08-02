@@ -428,7 +428,7 @@ const Parent = () => {
     <div id='componentDiv' className='mx-auto bg-white rounded'>
       {loading === true? <LoadingPage/> : null}
       <Routes >
-        <Route   path='/' element={<HomePage 
+        <Route   path='/home' element={<HomePage 
       profilePicture={userInfo['profile_picture']}
       userName={userInfo["user_name"]} 
       favoriteMovieTitle={favoriteMovie['movie_title']} 
@@ -457,7 +457,7 @@ const Parent = () => {
       friendName={startingUserData[1].user_name}
       // friendFriend={friendFriend}
       /> } />
-        <Route path='/form' element={<FormPage 
+        <Route path='/movie-pals' element={<FormPage 
       onChangeUserInfo={handleChangeUserInfo} 
       value={userInfo} 
       onFormSubmit={handleFormSubmit}
