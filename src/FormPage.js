@@ -5,7 +5,7 @@ const FormPage = (props) => {
 
     return (
         <div id='formContainer' className='position-absolute top-50 start-50 translate-middle row p-3 bg-white rounded'>
-            <div id='actualForm' className='col-lg-7 row justify-content-center mx-auto p-2 rounded'>
+            <div id='actualForm' className='col-md-8 col-lg-7 row justify-content-center mx-auto p-2 rounded'>
                 <h1 id='moviePals' className='fst-italic rounded-top text-light'>Movie Pals</h1>
 
                 <form onSubmit={props.onFormSubmit} className=" row justify-content-center p-2">
@@ -21,9 +21,9 @@ const FormPage = (props) => {
             
                     <div className='row my-1'>
                         <label className='col'>IMDb-API Key</label>
-                        <details className='col-lg-4 col-xl-3 border border-dark'>
-                            <summary className='border border-dark text-end me-0 me-xl-3'>?</summary>
-                            <div id="summaryDiv" className='position-absolute end-50 p-4 border border-4 border-dark'>
+                        <details className='col-4 col-xl-3'>
+                            <summary className='text-end me-0 me-xl-3'>?</summary>
+                            <div id="summaryDiv" className='position-absolute p-4 border border-4 border-dark col-10 col-lg-8 col-xl-7 col-xxl-5'>
                                 <p className="fw-semibold">How to get your API key</p>
                                 <ul className='p-2'>
                                     <li>- Register for an IMDb-API Key <a className='text-reset' href='https://imdb-api.com/Identity/Account/Register'>here</a>.</li>
@@ -44,10 +44,11 @@ const FormPage = (props) => {
                 </form>
                 
             </div>
-            <img id="logo" className=' col-5 img-fluid' src={logo} />
+
+            <img id="logo" className='col-md-4 col-lg-5 img-fluid' src={logo} />
 
             
-            <dialog className='col-lg-5 col-xl-4' id="dialog" >
+            <dialog className='col-8 col-md-7 col-lg-6 col-xl-5 col-xxl-4' id="dialog" >
                 <p className='fw-semibold'>Is this correct?</p>
                 <ul className='row mx-auto'>
                     <li className='col-5 ms-2 text-center'>

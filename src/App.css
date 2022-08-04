@@ -10,18 +10,13 @@ body{
 #loading{
     z-index: 2;
     opacity: .75;
-    background-color: #bba0a0;
 }
 
-
-
-
-
-#formContainer, #componentDiv{
+#formContainer{
     border: solid rgb(69, 129, 182) 3px ;
 }
 
-#actualForm, #userSection{
+#actualForm, #userSection, #loading{
     border: solid rgb(69, 129, 182) 2px ;
 }
 
@@ -36,18 +31,6 @@ body{
 input, dialog div button{
     box-shadow: 0 .5px 1.5px .50px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 #logo{
     max-width: 700px;
@@ -114,10 +97,7 @@ nav ul {
     min-height: 479px;
 }
 
-#searchContainer{
-    min-height: 379px;
-    max-height: 380px;
-}
+
 
 #searched_movie{
     max-width: 219px;
@@ -129,9 +109,7 @@ nav ul {
     max-height: 31.5px;
 }
 
-#recSection{
-    min-height: 569px;
-}
+
 
 .recImg {
     max-width: 153px;
@@ -139,6 +117,58 @@ nav ul {
     max-height: 195px;
 }
 
-.removeBtn{
-    visibility: hidden;
+
+
+#summaryDiv{
+    z-index: 1;
+    /* right: 45%; */
 }
+
+@media screen and (max-width: 991px){
+    
+    .removeBtn{
+        visibility: visible;
+    }
+
+    #recSection{
+        min-height: 400px;
+    }
+
+    
+}
+
+@media screen and (max-width: 767px){
+
+    #summaryDiv{
+        right: 15%;
+    }
+
+}
+
+@media screen and (min-width: 768px){
+    #summaryDiv{
+        right: 45%;
+    }
+}
+
+@media screen and (min-width: 992px){
+
+    #searchContainer{
+        /* visibility: hidden; */
+        min-height: 379px;
+        max-height: 380px;
+    }
+
+    #summaryDiv{
+        right: 50%;
+    }
+
+    #recSection{
+        min-height: 569px;
+    }
+
+    .removeBtn{
+        visibility: hidden;
+    }
+}
+

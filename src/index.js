@@ -76,7 +76,7 @@ const Parent = () => {
   
 
 
-  const fetchh = async (x, y) => {
+  const fetchh = async (x) => {
 
     try {
       let response = await fetch(`https://imdb-api.com/en/API/SearchMovie/${userInfo['api_key']}/${x}`) 
@@ -101,12 +101,12 @@ const Parent = () => {
           throw new Error('Film could not be found. Please check spelling for "Favorite Movie".')
         } else {
 
-            await y(() => ({
+            return {
               movie_title: json['results'][0]['title'],
               movie_date: json['results'][0]['description'],
               movie_img: json['results'][0]['image'],
               movie_id: json['results'][0]["id"]
-            }))
+            }
           }
     } catch (error) {
       throw error;
@@ -192,7 +192,9 @@ const Parent = () => {
           userInfo
         ])
   
-        await fetchh(userInfo['favorite_movie'], setFavoriteMovie);
+        let fetchedFavMovie = await fetchh(userInfo['favorite_movie']);
+        setFavoriteMovie(fetchedFavMovie)
+        document.getElementById('componentDiv').style.border = 'solid rgb(69, 129, 182) 3px'
         navigate('/profile')
         setLoading(false)
 
@@ -209,6 +211,7 @@ const Parent = () => {
     setUserData(startingUserData)
     setSearchedMovie({})
     setAddMovie([])
+    document.getElementById('componentDiv').style.border = 'none'
     navigate("/")
   }
 
@@ -225,8 +228,8 @@ const Parent = () => {
   const handleChangeFavSubmit = async (e) => {
     e.preventDefault();
     
-    await fetchh(document.getElementById('favorite_movie').value, setFavoriteMovie);
-
+    let fetchedFavMovie = await fetchh(document.getElementById('favorite_movie').value);
+    setFavoriteMovie(fetchedFavMovie)
     setUserInfo({
       user_name: userInfo['user_name'],
       favorite_movie: document.getElementById('favorite_movie').value,
@@ -281,7 +284,8 @@ const Parent = () => {
       try {
         if (searchTrigger === true){
           setLoading(true)
-          await fetchh(searchMovie, setSearchedMovie)
+          let fetchedSearchedMovie = await fetchh(searchMovie)
+          setSearchedMovie(fetchedSearchedMovie)
           setSearchTrigger(false)
           setLoading(false)
         }
@@ -296,6 +300,7 @@ const Parent = () => {
   const handleSearchSubmit = (e) => {
 
     e.preventDefault();
+    document.getElementById("searchContainer").style.visibility = "visible"
     setSearchTrigger(true)
   }
 
@@ -312,6 +317,7 @@ const Parent = () => {
           movie_img: searchedMovie['movie_img'], 
           movie_id: searchedMovie['movie_id']  
         }])
+        document.getElementById("searchContainer").style.visibility = "hidden"
         return
       } else if(addMovie.length > 0){
           
@@ -329,6 +335,7 @@ const Parent = () => {
               movie_id: searchedMovie['movie_id']      
             }]
           })
+          document.getElementById("searchContainer").style.visibility = "hidden"
         } 
 
     } catch (error) {
@@ -351,24 +358,43 @@ const Parent = () => {
     setAddMovie(addMovie.filter((movie) => movie['movie_id'] !== e.target.id))
   }
 
+
+
+
   
 
-  const viewingUserRecommendedFetch = async (x) => {
-    try{
-      let response = await fetch(`https://imdb-api.com/en/API/SearchMovie/${userInfo['api_key']}/${x}`) 
-      let json = await response.json()
+  // const viewingUserRecommendedFetch = async (x) => {
+  //   try{
+  //     let response = await fetch(`https://imdb-api.com/en/API/SearchMovie/${userInfo['api_key']}/${x}`) 
+  //     let json = await response.json()
 
-      return {
-        movie_title: json.results[0].title,
-        movie_date: json.results[0].description,
-        movie_img: json.results[0].image,
-        movie_id: json.results[0].id
-      }
+  //     return {
+  //       movie_title: json.results[0].title,
+  //       movie_date: json.results[0].description,
+  //       movie_img: json.results[0].image,
+  //       movie_id: json.results[0].id
+  //     }
 
-    } catch(error){
-      console.log(error) 
-    }
-  }
+  //   } catch(error){
+  //     console.log(error) 
+  //   }
+  // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const handleOnClickFriend = async (e) => {
     try {
@@ -382,7 +408,7 @@ const Parent = () => {
         // let k = friendFriend.find((userMain) => userMain[0].id === userInfo['id'])
         // console.log(k)
 
-        navigate("/friend")
+        navigate('{`/${viewingUser.user_name}`}')
         setLoading(false)
         return
       }
@@ -403,19 +429,20 @@ const Parent = () => {
         recommended_movies: clickedUser['recommended_movies']
       })
 
-      await fetchh(clickedUser['favorite_movie'], setViewingUserFavoriteMovie)
+      let fetchedViewingUserFavoriteMovie = await fetchh(clickedUser['favorite_movie'])
+      setViewingUserFavoriteMovie(fetchedViewingUserFavoriteMovie)
 
       if (clickedUser['api_key'] === userInfo['api_key']){
         
         setViewingUserRecommends(addMovie)
       } else {
         let recommendedMovies = await Promise.all(clickedUser['recommended_movies'].map( (rec) => {
-          return viewingUserRecommendedFetch(rec)
+          return fetchh(rec)
         })) 
         setViewingUserRecommends(recommendedMovies)
       }
 
-      navigate("/friend")
+      navigate('{`/${viewingUser.user_name}`}')
       setLoading(false)
       
     } catch (error) {
@@ -457,7 +484,7 @@ const Parent = () => {
       friendName={startingUserData[1].user_name}
       // friendFriend={friendFriend}
       /> } />
-        <Route path='/movie-pals' element={<FormPage 
+        <Route path='/Movie-Pals' element={<FormPage 
       onChangeUserInfo={handleChangeUserInfo} 
       value={userInfo} 
       onFormSubmit={handleFormSubmit}
@@ -466,7 +493,7 @@ const Parent = () => {
       onClickConfirm={handleOnClickConfirm}
       onClickDeny={handleOnClickDeny}
       /> }/>
-        <Route path='/friend' element={<FriendsPage 
+        <Route path={`/${viewingUser.user_name}`} element={<FriendsPage 
         viewingUserName={viewingUser['user_name']} 
         viewingUserImg={viewingUser['profile_picture']}
         viewingUserFavoriteMovieImage={viewingUserFavoriteMovie['movie_img']}
