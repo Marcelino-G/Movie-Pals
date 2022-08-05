@@ -9,13 +9,13 @@ let startingUserData = [
   id: "1",
   recommended_movies: [
     'the exorcist', 
-    // 'taxi driver', 
-    // 'the lord of the rings: fellowship', 
-    // 'hereditary', 
-    // 'napoleon dynamite',
-    // 'beatlejuice',
-    // 'leon',
-    // 'the batman'
+    'taxi driver', 
+    'the lord of the rings: fellowship', 
+    'hereditary', 
+    'napoleon dynamite',
+    'beatlejuice',
+    'leon',
+    'the batman'
   ],
   friends: ["2"]
 },
@@ -26,13 +26,13 @@ let startingUserData = [
   id: "2",
   recommended_movies: [
     'blade runner', 
-    // 'joker', 
-    // 'mid sommar', 
-    // 'parasite', 
-    // 'eternal sunshine of the spotless mind',
-    // '28 days later',
-    // 'the shining',
-    // 'akira'
+    'joker', 
+    'mid sommar', 
+    'parasite', 
+    'eternal sunshine of the spotless mind',
+    '28 days later',
+    'the shining',
+    'akira'
   ],
   friends: ['1']
 },
