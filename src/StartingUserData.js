@@ -35,7 +35,8 @@ let startingUserData = [
     // 'akira'
   ],
   friends: ['1']
-}
+},
+{}
 
 
 

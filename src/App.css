@@ -24,7 +24,7 @@ body{
     border: solid rgb(69, 129, 182) 1px ;
 }
 
-#moviePals, section, #userNameImgContainer, #summaryDiv{
+#moviePals, section, #userNameImgContainer{
     background-color: rgb(69, 129, 182);
 }
 
@@ -77,9 +77,9 @@ nav ul {
 }
 
 #profile_picDisplayed{
-    /* min-height: 296px; */
+    min-height: 296px;
     max-height: 297px;
-    /* min-width: 382px; */
+    min-width: 382px;
     max-width: 383px;
 }
 
@@ -97,6 +97,9 @@ nav ul {
     min-height: 479px;
 }
 
+#searchContainer{
+    visibility: hidden;
+}
 
 
 #searched_movie{
@@ -154,7 +157,7 @@ nav ul {
 @media screen and (min-width: 992px){
 
     #searchContainer{
-        /* visibility: hidden; */
+        
         min-height: 379px;
         max-height: 380px;
     }

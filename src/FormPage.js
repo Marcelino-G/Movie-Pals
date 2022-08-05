@@ -23,7 +23,7 @@ const FormPage = (props) => {
                         <label className='col'>IMDb-API Key</label>
                         <details className='col-4 col-xl-3'>
                             <summary className='text-end me-0 me-xl-3'>?</summary>
-                            <div id="summaryDiv" className='position-absolute p-4 border border-4 border-dark col-10 col-lg-8 col-xl-7 col-xxl-5'>
+                            <div id="summaryDiv" className='position-absolute p-4 border border-4 border-dark col-10 col-lg-8 col-xl-7 col-xxl-5 bg-white'>
                                 <p className="fw-semibold">How to get your API key</p>
                                 <ul className='p-2'>
                                     <li>- Register for an IMDb-API Key <a className='text-reset' href='https://imdb-api.com/Identity/Account/Register'>here</a>.</li>
@@ -45,11 +45,11 @@ const FormPage = (props) => {
                 
             </div>
 
-            <img id="logo" className='col-md-4 col-lg-5 img-fluid' src={logo} />
+            <img id="logo" className='col-10 col-sm-8 col-md-4 col-lg-5 img-fluid' src={logo} />
 
             
             <dialog className='col-8 col-md-7 col-lg-6 col-xl-5 col-xxl-4' id="dialog" >
-                <p className='fw-semibold'>Is this correct?</p>
+                <p className='fw-semibold'>Welcome, is this correct?</p>
                 <ul className='row mx-auto'>
                     <li className='col-5 ms-2 text-center'>
                         <p className=''>User Name:</p>

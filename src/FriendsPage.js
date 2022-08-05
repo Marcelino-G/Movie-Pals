@@ -9,10 +9,10 @@ const FriendsPage = (props) => {
         <h1 className='col-lg-6 fst-italic text-light'>Movie Pals</h1>
         <nav className='col-lg-5 col-xl-4'>
           <ul className='row justify-content-end justify-content-lg-between text-center fs-5 position-relative'>
-            <li className='col-3 mx-3 mx-lg-0 col-lg-5 row' >
+            <li className='col-4 mx-3 mx-lg-0 col-lg-5 row' >
               <button onClick={props.onClickHome}>Home</button>
             </li>
-            <li className='col-4 col-lg-6 row' >
+            <li className='col-5 col-lg-6 row' >
               <button onClick={props.onClickLogOut}>Log Out</button>
             </li>
           </ul>
@@ -29,8 +29,8 @@ const FriendsPage = (props) => {
         </div>
 
         <section className='col-4 col-md-5 col-lg-5 col-xxl-4 row justify-content-start p-4 fw-semibold border-0 bg-white'>
-          <p className='border col-8' >Favorite Movie</p>
-          <img id = "userFavoriteMovieDisplayed" className="col-8 img-fluid border" alt="Loading..." src={props.viewingUserFavoriteMovieImage} />
+          <p className='col-8' >Favorite Movie</p>
+          <img id = "userFavoriteMovieDisplayed" className="col-8 img-fluid" alt="Loading..." src={props.viewingUserFavoriteMovieImage} />
           <span className='col-8 '>{props.viewingUserFavoriteMovieTitle}</span>
           <span className='col-8'>{props.viewingUserFavoriteMovieDate}</span>
         </section>
@@ -40,15 +40,13 @@ const FriendsPage = (props) => {
         <h2 className=''>Friends List</h2>
         <section className='border-0'>
           <ul className='row justify-content-evenly mx-auto'>
-            {/* {props.viewingUsersFriends.map((friend) => {
-              
-              
-              return (
-                <li className={`col-6 col-md-5 col-xl-4 row justify-content-center rounded rounded-4 bg-white friendClick ${props.friendId}`} onClick={props.onClickFriend} id={friend[0].id} key={friend[0].id}>
-                  <img className={`img-fluid ${props.friendId}`} alt="loading..." src={friend[0]['profile_picture']} />
-                  <span className={`text-capitalize fst-italic fw-semibold ${props.friendId}`} >{friend[0]['user_name']}</span>
-                </li>
-              )})} */}
+            {props.viewingUsersFriends.map((friend) => (
+
+                <li className={`col-6 col-md-5 col-xl-4 row justify-content-center rounded rounded-4 bg-white friendClick ${friend[0].id}`} onClick={props.onClickFriend} id={friend[0].id} key={friend[0].id}>
+                  <img className={`img-fluid ${friend[0].id}`} alt="loading..." src={friend[0]['profile_picture']} />
+                  <span className={`text-capitalize fst-italic fw-semibold ${friend[0].id}`} >{friend[0]['user_name']}</span>
+                </li>)
+              )}
           </ul>
         </section>
       </section>
@@ -62,14 +60,14 @@ const FriendsPage = (props) => {
         
         <section>
           <ul className='row mx-auto justify-content-evenly fw-semibold' id='addContainer'>
-            {/* {props.viewingUserRecommends.map((item) => (
+            {props.viewingUserRecommends.map((item) => (
               
-              <li className='col-6 col-lg-4 col-xxl-3 row gy-1 justify-content-center text-center bg-white rounded' key={item["movie_id"]}>
+              <li className='col-6 col-lg-4 col-xxl-3 row gy-1 justify-content-center text-center' key={item["movie_id"]}>
                 <img className='col-9 img-fluid recImg' src={item['movie_img']}/>
                 <span className='' >{item['movie_title']}</span>
                 <span className=''>{item['movie_date']}</span>
               </li>)
-            )} */}
+            )}
           </ul>
         </section>
       </section>
