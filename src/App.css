@@ -77,9 +77,9 @@ nav ul {
 }
 
 #profile_picDisplayed{
-    min-height: 296px;
+    /* min-height: 296px; */
     max-height: 297px;
-    min-width: 382px;
+    /* min-width: 382px; */
     max-width: 383px;
 }
 
