@@ -47,7 +47,6 @@ const FormPage = (props) => {
 
             <img id="logo" className='col-10 col-sm-8 col-md-4 col-lg-5 img-fluid' src={logo} />
 
-            
             <dialog className='col-8 col-md-7 col-lg-6 col-xl-5 col-xxl-4' id="dialog" >
                 <p className='fw-semibold'>Welcome, is this correct?</p>
                 <ul className='row mx-auto'>

@@ -8,14 +8,12 @@ let startingUserData = [
   profile_picture: friend_pic_1, 
   id: "1",
   recommended_movies: [
-    'the exorcist', 
-    'taxi driver', 
+    'major pain', 
     'the lord of the rings: fellowship', 
     'hereditary', 
-    'napoleon dynamite',
-    'beatlejuice',
-    'leon',
-    'the batman'
+    'the fast and the furious',
+    'US',
+    'blade 1998'
   ],
   friends: ["2"]
 },
@@ -25,22 +23,17 @@ let startingUserData = [
   profile_picture: friend_pic_2, 
   id: "2",
   recommended_movies: [
-    'blade runner', 
-    'joker', 
-    'mid sommar', 
+    'heavyweights',  
     'parasite', 
     'eternal sunshine of the spotless mind',
     '28 days later',
-    'the shining',
-    'akira'
+    'akira',
+    'juno',
   ],
   friends: ['1']
 },
+
 {}
-
-
-
-
 ]
 
 export default startingUserData

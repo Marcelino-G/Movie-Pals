@@ -1,11 +1,9 @@
 import './App.css';
-import default_user_pic from './default_user_pic.png'
 
 const HomePage = (props) => {
 
   return (
     <div className='row justify-content-around mx-auto py-3 gy-3'>
-
 
       <div id='moviePals' className='col-11 col-lg-10 row justify-content-between mt-3 rounded-top'>
         <h1 className='col-lg-6 fst-italic text-light'>Movie Pals</h1>
@@ -20,8 +18,6 @@ const HomePage = (props) => {
           </ul>
         </nav>
       </div>
-
-      
 
       <section id='userSection' className='col-11 col-lg-6 row justify-content-evenly my-3 gy-3 py-3 text-center rounded bg-white'>
 
@@ -39,7 +35,6 @@ const HomePage = (props) => {
           <span className='col-8'>{props.favoriteMovieDate}</span>
         </section>
 
-        
         <form className='col-5 rounded' onSubmit={props.onSubmitProfilePic}>
           <label className=' mb-1' htmlFor="profile_picture" >Change Profile Picture?</label>
           <input className='col-12 col-lg-12 ' accept='image/*' type="file" id="profile_picture" onChange={props.onChangeProfilePic}></input>
@@ -54,10 +49,6 @@ const HomePage = (props) => {
         
       </section>
 
-
-
-
-      
       <section className='col-11 col-lg-4 text-center py-3 rounded' >
         <h2 className=''>Friends List</h2>
         <section className='border-0'>
@@ -70,11 +61,10 @@ const HomePage = (props) => {
         </section>
       </section>
         
-
       <section id="search_section" className='col-4 col-lg-4 row justify-content-center text-center my-3 rounded'>
         <h2 className='my-2 fw-bold fs-5' >Search Movies</h2>
         <form className="row justify-content-between" onSubmit={props.onSearchSubmit}>
-          <input id='search' className='col-12 col-lg-8' type="search"  onChange={props.onChangeSearchMovie} required></input>
+          <input id='search' className='col-12 col-lg-8' type="search" required></input>
           <input className='col-10 mx-auto mt-2 mt-lg-0 col-lg-4 col-xl-3' type="submit" value="Search"></input>
         </form>
         <section className="row justify-content-center py-2 my-1 fw-semibold" id="searchContainer">
@@ -84,10 +74,6 @@ const HomePage = (props) => {
           <span className='' >{props.searchedMovieDate}</span>
         </section>
       </section>
-
-      
-
-      
 
       <section id='recSection' className="col-7 text-center py-3 rounded">
 

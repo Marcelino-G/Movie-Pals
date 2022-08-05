@@ -12,54 +12,35 @@ const main = ReactDOM.createRoot(document.getElementById('main'));
 
 const Parent = () => {
 
-  const navigate = useNavigate();
+  const dialog = document.getElementById("dialog")
 
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false)
 
-  const [userInfo, setUserInfo] = useState({
-    user_name: "",
-    favorite_movie: "",
-    api_key: "",
-    profile_picture: undefined,
-    id: ""
-  })
-  const [favoriteMovie, setFavoriteMovie] = useState({
-    movie_title: "",
-    movie_date: "",
-    movie_img: "#"
-  });
+  const [userInfo, setUserInfo] = useState({})
+  const [favoriteMovie, setFavoriteMovie] = useState({});
+
   const [userData, setUserData] = useState(startingUserData)
 
   const [searchTrigger, setSearchTrigger] = useState(false)
-  const [searchMovie, setSearchMovie] = useState("#")
-  const [searchedMovie, setSearchedMovie] = useState({
-    movie_title: "",
-    movie_date: "",
-    movie_img: "#",
-    movie_id: ""
-  })
+  const [searchedMovie, setSearchedMovie] = useState({})
   const [addMovie, setAddMovie] = useState([])
 
   const [viewingUser, setViewingUser] = useState("")
-  const [viewingUserFavoriteMovie, setViewingUserFavoriteMovie] = useState({
-    movie_title: "",
-    movie_date: "",
-    movie_img: "#"
-  })
-  const [viewingUsersFriends, setViewingUsersFriends] = useState()
+  const [viewingUserFavoriteMovie, setViewingUserFavoriteMovie] = useState({})
+  const [viewingUsersFriends, setViewingUsersFriends] = useState([])
   const [viewingUserRecommends, setViewingUserRecommends] = useState([])
-  const dialog = document.getElementById("dialog")
-
+  
   useEffect(() => {
 
     setUserInfo(JSON.parse(window.localStorage.getItem('userInfo')))
     setFavoriteMovie(JSON.parse(window.localStorage.getItem('favoriteMovie')))
     setAddMovie(JSON.parse(window.localStorage.getItem('addedMovies')))
     setUserData(JSON.parse(window.localStorage.getItem('userData')))
-    // setViewingUserRecommends(JSON.parse(window.localStorage.getItem('viewingUserRecommends')))
-    // setViewingUserFavoriteMovie(JSON.parse(window.localStorage.getItem('viewingUserFavoriteMovie')))
-    // setViewingUser(JSON.parse(window.localStorage.getItem('viewingUser')))
-    // setViewingUsersFriends(JSON.parse(window.localStorage.getItem('viewingUsersFriends')))
+    setViewingUserRecommends(JSON.parse(window.localStorage.getItem('viewingUserRecommends')))
+    setViewingUserFavoriteMovie(JSON.parse(window.localStorage.getItem('viewingUserFavoriteMovie')))
+    setViewingUser(JSON.parse(window.localStorage.getItem('viewingUser')))
+    setViewingUsersFriends(JSON.parse(window.localStorage.getItem('viewingUsersFriends')))
 
   }, [])
 
@@ -69,21 +50,17 @@ const Parent = () => {
     window.localStorage.setItem('favoriteMovie', JSON.stringify(favoriteMovie))
     window.localStorage.setItem('addedMovies', JSON.stringify(addMovie))
     window.localStorage.setItem('userData', JSON.stringify(userData))
-    // window.localStorage.setItem('viewingUserRecommends', JSON.stringify(viewingUserRecommends))
-    // window.localStorage.setItem('viewingUserFavoriteMovie', JSON.stringify(viewingUserFavoriteMovie))
-    // window.localStorage.setItem('viewingUser', JSON.stringify(viewingUser))
-    // window.localStorage.setItem('viewingUsersFriends', JSON.stringify(viewingUsersFriends))
-    
-    
-    
-    
-  }, [userInfo, favoriteMovie, addMovie, userData , viewingUserRecommends, viewingUserFavoriteMovie, viewingUser])
+    window.localStorage.setItem('viewingUserRecommends', JSON.stringify(viewingUserRecommends))
+    window.localStorage.setItem('viewingUserFavoriteMovie', JSON.stringify(viewingUserFavoriteMovie))
+    window.localStorage.setItem('viewingUser', JSON.stringify(viewingUser))
+    window.localStorage.setItem('viewingUsersFriends', JSON.stringify(viewingUsersFriends))
 
-  
+  }, [userInfo, favoriteMovie, addMovie, userData, viewingUserRecommends, viewingUserFavoriteMovie, viewingUser, viewingUsersFriends])
 
   const fetchh = async (x) => {
 
     try {
+
       let response = await fetch(`https://imdb-api.com/en/API/SearchMovie/${userInfo.api_key}/${x}`) 
       let json = await response.json()
 
@@ -115,6 +92,9 @@ const Parent = () => {
             }
           }
     } catch (error) {
+      navigate('/home')
+      setSearchTrigger(false)
+      setLoading(false)
       throw error;
     }
   }
@@ -146,6 +126,7 @@ const Parent = () => {
   }
 
   const handleFormSubmit = async (e) => {
+
     e.preventDefault();
     dialog.showModal()
 
@@ -163,6 +144,7 @@ const Parent = () => {
         })
 
       } else {
+
         setUserInfo({...userInfo, 
           id: userInfo['api_key'],
           friends: ['2'],
@@ -172,6 +154,7 @@ const Parent = () => {
   }
 
   const handleOnClickDeny = () => {
+
     setUserInfo({})
 
     const formInputs = document.getElementsByTagName('input')
@@ -184,12 +167,9 @@ const Parent = () => {
 
 
   const handleOnClickConfirm = async () => {
-    // console.log(userInfo)
-    // console.log(userData)
-
-    
 
     try {
+
       setLoading(true)
       dialog.close();
       
@@ -214,14 +194,14 @@ const Parent = () => {
 
         let fetchedFavMovie = await fetchh(userInfo['favorite_movie']);
         setFavoriteMovie(fetchedFavMovie)
+
         document.getElementById('componentDiv').style.border = 'solid rgb(69, 129, 182) 3px'
+
         navigate('/home')
         setLoading(false)
 
     } catch (error) {
-      setLoading(false)
       alert(error)
-      console.log(error)
     }
   }
 
@@ -231,26 +211,23 @@ const Parent = () => {
     setUserData(startingUserData)
     setSearchedMovie({})
     setAddMovie([])
-    setViewingUsersFriends()
+    setViewingUsersFriends([])
+
     document.getElementById('componentDiv').style.border = 'none'
     navigate("/Movie-Pals")
   }
 
   const handleClickHome = () => {
-
     navigate("/home")
   }
 
-  const handleChangeSearchMovie = (e) => {
-
-    setSearchMovie(e.target.value)
-  }
-
   const handleChangeFavSubmit = async (e) => {
+    setLoading(true)
     e.preventDefault();
     
     let fetchedFavMovie = await fetchh(document.getElementById('favorite_movie').value);
     setFavoriteMovie(fetchedFavMovie)
+
     setUserInfo({
       user_name: userInfo['user_name'],
       favorite_movie: document.getElementById('favorite_movie').value,
@@ -271,6 +248,8 @@ const Parent = () => {
         profile_picture: prev[2]['profile_picture']
       }
     ])
+
+    setLoading(false)
   }
 
   const handleOnChangeProfilePic = () => {
@@ -285,12 +264,12 @@ const Parent = () => {
       friends: userInfo['friends'],
       profile_picture: pictureFile
     })
-
-    
   }
 
   const handleOnSubmitProfilePic = (e) => {
+
     e.preventDefault();
+
     setUserData(prev => [
       prev[0], prev[1], 
       {
@@ -304,143 +283,12 @@ const Parent = () => {
     ])
   }
 
-  useEffect(() => {
-
-    const searchMovieUseEffect = async() => {
-      try {
-        if (searchTrigger === true){
-          setLoading(true)
-          let fetchedSearchedMovie = await fetchh(searchMovie)
-          setSearchedMovie(fetchedSearchedMovie)
-          setSearchTrigger(false)
-          setLoading(false)
-          document.getElementById("searchContainer").style.visibility = "visible"
-        }
-      } catch (error) {
-        alert(error)
-        loading(false)
-      }
-    }
-    searchMovieUseEffect();
-
-  }, [searchTrigger])
-
-  const handleSearchSubmit = (e) => {
-
-    e.preventDefault();
-    setSearchTrigger(true)
-  }
-
-  const handleClickAdd = (e) => {   
-    try {
-      if(addMovie.length === 8){
-        throw new Error("Max recommended movies reached")
-
-      } else if(addMovie.length === 0){
-
-        setAddMovie([{
-          movie_title: searchedMovie['movie_title'],
-          movie_date: searchedMovie['movie_date'],
-          movie_img: searchedMovie['movie_img'], 
-          movie_id: searchedMovie['movie_id']  
-        }])
-        document.getElementById("searchContainer").style.visibility = "hidden"
-        return
-      } else if(addMovie.length > 0){
-          
-          if(addMovie.find(array => array['movie_id'] === searchedMovie['movie_id'])){
-
-            throw new Error("Movie already added to the recommended movie list")
-          }
-
-          setAddMovie(prev => {
-            return [...prev,
-              {
-              movie_title: searchedMovie['movie_title'],
-              movie_date: searchedMovie['movie_date'],
-              movie_img: searchedMovie['movie_img'], 
-              movie_id: searchedMovie['movie_id']      
-            }]
-          })
-          document.getElementById("searchContainer").style.visibility = "hidden"
-        } 
-
-    } catch (error) {
-      alert(error.message)
-    }
-  }
-// fix the errors here
-  const handleOnPointerEnter = (e) => {
-    let z = e.target.firstChild
-    z.style.visibility = "visible"
-  }
-
-  const handleOnPointerLeave = (e) => {
-    let z = e.target.firstChild
-    z.style.visibility = "hidden"
-  }
-
-  const handleClickRemove = (e) => {
-
-    setAddMovie(addMovie.filter((movie) => movie['movie_id'] !== e.target.id))
-  }
-
-
-
-
-  
-
-  // const viewingUserRecommendedFetch = async (x) => {
-  //   try{
-  //     let response = await fetch(`https://imdb-api.com/en/API/SearchMovie/${userInfo['api_key']}/${x}`) 
-  //     let json = await response.json()
-
-  //     return {
-  //       movie_title: json.results[0].title,
-  //       movie_date: json.results[0].description,
-  //       movie_img: json.results[0].image,
-  //       movie_id: json.results[0].id
-  //     }
-
-  //   } catch(error){
-  //     console.log(error) 
-  //   }
-  // }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   const handleOnClickFriend = async (e) => {
-    try {
 
+    try {
 
       setLoading(true)
     
-      // if(e.target.classList[e.target.classList.length - 1] === viewingUser['id']){
-
-      //   // our latest problem... if cleanup didnt already fix... pic updating on home but not when supposed to be
-      //   // seen on friends list with the first visit.
-      //   // let k = friendFriend.find((userMain) => userMain[0].id === userInfo['id'])
-      //   // console.log(k)
-
-      //   navigate('/friend')
-      //   setLoading(false)
-      //   return
-      // }
-
       let clickedUser = userData.find((user) => user.id === e.target.classList[e.target.classList.length - 1])
       
       let friends = clickedUser.friends.map((friend) => {
@@ -464,6 +312,7 @@ const Parent = () => {
         
         setViewingUserRecommends(addMovie)
       } else {
+
         let recommendedMovies = await Promise.all(clickedUser['recommended_movies'].map( (rec) => {
           return fetchh(rec)
         })) 
@@ -474,65 +323,153 @@ const Parent = () => {
       setLoading(false)
       
     } catch (error) {
+      navigate('/home')
       setLoading(false)
       alert(error)
-      console.log(error)
+      console.log(error) 
     }
   }
+
+  useEffect(() => {
+
+    const searchMovieUseEffect = async() => {
+      try {
+        if (searchTrigger === true){
+
+          setLoading(true)
+
+          let fetchedSearchedMovie = await fetchh(document.getElementById("search").value)
+          setSearchedMovie(fetchedSearchedMovie)
+
+          setSearchTrigger(false)
+          setLoading(false)
+
+          document.getElementById("searchContainer").style.visibility = "visible"
+        }
+      } catch (error) {
+        alert(error)
+      }
+    }
+
+    searchMovieUseEffect();
+
+  }, [searchTrigger])
+
+  const handleSearchSubmit = (e) => {
+
+    e.preventDefault();
+    setSearchTrigger(true)
+  }
+
+  const handleClickAdd = (e) => { 
+
+    try {
+      if(addMovie.length === 8){
+        throw new Error("Max recommended movies reached")
+
+      } else if(addMovie.length === 0){
+
+        setAddMovie([{
+          movie_title: searchedMovie['movie_title'],
+          movie_date: searchedMovie['movie_date'],
+          movie_img: searchedMovie['movie_img'], 
+          movie_id: searchedMovie['movie_id']  
+        }])
+
+        document.getElementById("searchContainer").style.visibility = "hidden"
+        document.getElementById('search').value = ""
+        return
+      } else if(addMovie.length > 0){
+          
+          if(addMovie.find(array => array['movie_id'] === searchedMovie['movie_id'])){
+
+            throw new Error("Movie already added to the recommended movie list")
+          }
+
+          setAddMovie(prev => {
+            return [...prev,
+              {
+              movie_title: searchedMovie['movie_title'],
+              movie_date: searchedMovie['movie_date'],
+              movie_img: searchedMovie['movie_img'], 
+              movie_id: searchedMovie['movie_id']      
+            }]
+          })
+
+          document.getElementById("searchContainer").style.visibility = "hidden"
+        } 
+
+    } catch (error) {
+      alert(error.message)
+    }
+  }
+
+// fix the errors here
+  const handleOnPointerEnter = (e) => {
+    let z = e.target.firstChild
+    z.style.visibility = "visible"
+  }
+
+  const handleOnPointerLeave = (e) => {
+    let z = e.target.firstChild
+    z.style.visibility = "hidden"
+  }
+
+  const handleClickRemove = (e) => {
+
+    setAddMovie(addMovie.filter((movie) => movie['movie_id'] !== e.target.id))
+  }
+// ^^
 
   return (
     <div id='componentDiv' className='mx-auto bg-white rounded'>
       {loading === true? <LoadingPage/> : null}
       <Routes >
         <Route   path='/home' element={<HomePage 
-      profilePicture={userInfo['profile_picture']}
-      userName={userInfo["user_name"]} 
-      favoriteMovieTitle={favoriteMovie['movie_title']} 
-      favoriteMovieImg={favoriteMovie['movie_img']} 
-      favoriteMovieDate={favoriteMovie['movie_date']}
-      
-      searchedMovieImg={searchedMovie['movie_img']}
-      searchedMovieTitle={searchedMovie['movie_title']}
-      searchedMovieDate={searchedMovie['movie_date']}
-      onClickAddMovie={handleClickAdd}
-      addMovieArray={addMovie}
-      onChangeSearchMovie={handleChangeSearchMovie}
-      onSearchSubmit={handleSearchSubmit}
-      // onChangeUserInfo={handleChangeUserInfo}
-      onChangeProfilePic={handleOnChangeProfilePic}
-      onSubmitProfilePic={handleOnSubmitProfilePic}
-      onChangeFavSubmit={handleChangeFavSubmit}
-      onPointerEnter={handleOnPointerEnter}
-      onPointerLeave={handleOnPointerLeave}
-      onClickRemove={handleClickRemove}
-      onClickLogOut={handleOnClickLogOut}
-      onClickHome={handleClickHome}
-      onClickFriend={handleOnClickFriend}
-      friendId={startingUserData[1].id}
-      friendPic={startingUserData[1].profile_picture}
-      friendName={startingUserData[1].user_name}
-      // friendFriend={friendFriend}
-      /> } />
+          profilePicture={userInfo['profile_picture']}
+          userName={userInfo["user_name"]} 
+          favoriteMovieTitle={favoriteMovie['movie_title']} 
+          favoriteMovieImg={favoriteMovie['movie_img']} 
+          favoriteMovieDate={favoriteMovie['movie_date']}
+          searchedMovieImg={searchedMovie['movie_img']}
+          searchedMovieTitle={searchedMovie['movie_title']}
+          searchedMovieDate={searchedMovie['movie_date']}
+          onClickAddMovie={handleClickAdd}
+          addMovieArray={addMovie}
+          onSearchSubmit={handleSearchSubmit}
+          onChangeProfilePic={handleOnChangeProfilePic}
+          onSubmitProfilePic={handleOnSubmitProfilePic}
+          onChangeFavSubmit={handleChangeFavSubmit}
+          onPointerEnter={handleOnPointerEnter}
+          onPointerLeave={handleOnPointerLeave}
+          onClickRemove={handleClickRemove}
+          onClickLogOut={handleOnClickLogOut}
+          onClickHome={handleClickHome}
+          onClickFriend={handleOnClickFriend}
+          friendId={startingUserData[1].id}
+          friendPic={startingUserData[1].profile_picture}
+          friendName={startingUserData[1].user_name}
+        />} />
         <Route path='/Movie-Pals' element={<FormPage 
-      onChangeUserInfo={handleChangeUserInfo} 
-      value={userInfo} 
-      onFormSubmit={handleFormSubmit}
-      userName={userInfo['user_name']}
-      favoriteMovie={userInfo['favorite_movie']}
-      onClickConfirm={handleOnClickConfirm}
-      onClickDeny={handleOnClickDeny}
-      /> }/>
+          onChangeUserInfo={handleChangeUserInfo} 
+          value={userInfo} 
+          onFormSubmit={handleFormSubmit}
+          userName={userInfo['user_name']}
+          favoriteMovie={userInfo['favorite_movie']}
+          onClickConfirm={handleOnClickConfirm}
+          onClickDeny={handleOnClickDeny}
+        />} />
         <Route path='/friend' element={<FriendsPage 
-        viewingUserName={viewingUser['user_name']} 
-        viewingUserImg={viewingUser['profile_picture']}
-        viewingUserFavoriteMovieImage={viewingUserFavoriteMovie['movie_img']}
-        onClickLogOut={handleOnClickLogOut}
-        viewingUserRecommends={viewingUserRecommends}
-        onClickHome={handleClickHome}
-        viewingUserFavoriteMovieTitle={viewingUserFavoriteMovie['movie_title']}
-        viewingUserFavoriteMovieDate={viewingUserFavoriteMovie['movie_date']}
-        viewingUsersFriends={viewingUsersFriends}
-        onClickFriend={handleOnClickFriend}
+          viewingUserName={viewingUser['user_name']} 
+          viewingUserImg={viewingUser['profile_picture']}
+          viewingUserFavoriteMovieImage={viewingUserFavoriteMovie['movie_img']}
+          onClickLogOut={handleOnClickLogOut}
+          viewingUserRecommends={viewingUserRecommends}
+          onClickHome={handleClickHome}
+          viewingUserFavoriteMovieTitle={viewingUserFavoriteMovie['movie_title']}
+          viewingUserFavoriteMovieDate={viewingUserFavoriteMovie['movie_date']}
+          viewingUsersFriends={viewingUsersFriends}
+          onClickFriend={handleOnClickFriend}
         />} />
       </Routes>
     </div>

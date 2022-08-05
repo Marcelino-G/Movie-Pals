@@ -59,10 +59,6 @@ li{
     list-style: none;
 }
 
-/* nav ul li button{
-    cursor: pointer;
-} */
-
 nav ul {
     top: 25%;
 }
@@ -77,9 +73,7 @@ nav ul {
 }
 
 #profile_picDisplayed{
-    /* min-height: 296px; */
     max-height: 297px;
-    /* min-width: 382px; */
     max-width: 383px;
 }
 
@@ -101,7 +95,6 @@ nav ul {
     visibility: hidden;
 }
 
-
 #searched_movie{
     max-width: 219px;
     max-height: 270px;
@@ -112,19 +105,14 @@ nav ul {
     max-height: 31.5px;
 }
 
-
-
 .recImg {
     max-width: 153px;
     min-height: 194px;
     max-height: 195px;
 }
 
-
-
 #summaryDiv{
     z-index: 1;
-    /* right: 45%; */
 }
 
 @media screen and (max-width: 991px){
@@ -135,9 +123,7 @@ nav ul {
 
     #recSection{
         min-height: 400px;
-    }
-
-    
+    }  
 }
 
 @media screen and (max-width: 767px){
@@ -145,10 +131,10 @@ nav ul {
     #summaryDiv{
         right: 15%;
     }
-
 }
 
 @media screen and (min-width: 768px){
+    
     #summaryDiv{
         right: 45%;
     }
