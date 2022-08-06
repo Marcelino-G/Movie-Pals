@@ -7,7 +7,14 @@ Movie Pals is an idea for a social media platform that revolves around movies. W
 This project is dependent on fetching data from IMDb's API (https://imdb-api.com/). All movie related content that is displayed (movie posters, movie titles, and movie year dates) is provided by IMDb's API. 
 
 ## Instructions
-In order for you to experience this project, you must create a **FREE** account over at https://imdb-api.com/. Once logged in, head over to your profile and take note of your own personal API key that you will use to fill out in a section of the *Movie Pals* form. This *key* will allow you to fetch/get movie information. With the **FREE** account you are able to fetch movie information 100 times. Filling out the *Movie Pals* form requires you to enter your favorite movie which will count as 1 fetch after submitting and confirming (99 fetch requests left). After confirmation, you are taken to your own "user" page where you are able to search for movies and change your favorite movie, each interaction costing a fetch request. When clicking on a friend to view their profile, movies that are hard-coded/saved will display, each **automatically** fetched and subtracted from your total remaining. If Billy's profile displays 6 movies (1 favorite and 5 recommended), that is 6 fetch requests subtracted from your total remaining. Use your fetch requests wisely, you'll know when you've met your limit.      
+In order for you to experience this project, you must create a **FREE** account over at https://imdb-api.com/. Once logged in, head over to your profile and take note of your own personal API key that you will use to fill out in a section of the *Movie Pals* form. This *key* will allow you to fetch/get movie information. With the **FREE** account you are able to fetch movie information 100 times. Filling out the *Movie Pals* form requires you to enter your favorite movie which will count as 1 fetch after submitting and confirming (99 fetch requests left). After confirmation, you are taken to your own "user" page where you are able to search for movies and change your favorite movie, each interaction costing a fetch request. When clicking on a friend to view their profile, movies that are hard-coded/saved will display, each **automatically** fetched and subtracted from your total remaining. If Billy's profile displays 6 movies (1 favorite and 5 recommended), that is 6 fetch requests subtracted from your total remaining. Use your fetch requests wisely, you'll know when you've met your limit.    
+
+### ***Note***
+- Refreshing your browser on any page but the main 'form' page will cause everything to crash.
+- Your browsers 'back' button wont work as expected.
+- Your profile picture may suddenly disappear while exploring and clicking through 'friends'.
+- The layout is not friendly to the mobile viewer.
+- Please let me know of any types of bugs you encounter.
 
 ## Site
 https://marcelino-g.github.io/Movie-Pals/
