@@ -13,7 +13,7 @@ In order for you to experience this project, you must create a **FREE** account 
 - Refreshing your browser on any page but the main 'form' page will cause everything to crash.
 - Your browsers 'back' button wont work as expected.
 - Your profile picture may suddenly disappear while exploring and clicking through 'friends'.
-- The layout is not friendly to the mobile viewer.
+- The layout is not friendly to the mobile user.
 - Please let me know of any types of bugs you encounter.
 
 ## Site
