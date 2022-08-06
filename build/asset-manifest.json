@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/Movie-Pals/static/css/main.fa34f1f2.css",
-    "main.js": "/Movie-Pals/static/js/main.2f1a64ec.js",
+    "main.js": "/Movie-Pals/static/js/main.2f7aaca0.js",
     "static/media/default_user_pic.png": "/Movie-Pals/static/media/default_user_pic.600aae8f15dafdbc1a03.png",
     "static/media/Logo.png": "/Movie-Pals/static/media/Logo.d0bbc2a95a4c121d714d.png",
     "static/media/friend_pic_2.png": "/Movie-Pals/static/media/friend_pic_2.3f338bd0e865aa01cfbd.png",
     "static/media/friend_pic_1.png": "/Movie-Pals/static/media/friend_pic_1.b7c67f627bd51199221d.png",
     "index.html": "/Movie-Pals/index.html",
     "main.fa34f1f2.css.map": "/Movie-Pals/static/css/main.fa34f1f2.css.map",
-    "main.2f1a64ec.js.map": "/Movie-Pals/static/js/main.2f1a64ec.js.map"
+    "main.2f7aaca0.js.map": "/Movie-Pals/static/js/main.2f7aaca0.js.map"
   },
   "entrypoints": [
     "static/css/main.fa34f1f2.css",
-    "static/js/main.2f1a64ec.js"
+    "static/js/main.2f7aaca0.js"
   ]
 }
