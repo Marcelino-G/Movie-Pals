@@ -25,12 +25,12 @@ const HomePage = (props) => {
           <h2 className='row'>
             <span className='text-capitalize fst-italic fw-semibold'>{props.userName}</span>
           </h2>
-          <img id='profile_picDisplayed' className='border border-2 img-fluid pb-2 rounded-circle' alt="Loading.." src={props.profilePicture}/>
+          <img id='profile_picDisplayed' className='border border-2 img-fluid pb-2 rounded-circle' alt={props.userName} src={props.profilePicture}/>
         </div>
 
         <section className='col-4 col-md-5 col-lg-5 col-xxl-4 row justify-content-start p-4 fw-semibold border-0 bg-white'>
           <p className='col-8 ' >Favorite Movie</p>
-          <img id = "userFavoriteMovieDisplayed" className='col-8 img-fluid' alt="Loading..." src={props.favoriteMovieImg}/>
+          <img id = "userFavoriteMovieDisplayed" className='col-8 img-fluid' alt={props.favoriteMovieTitle} src={props.favoriteMovieImg}/>
           <span className='col-8'>{props.favoriteMovieTitle} </span>
           <span className='col-8'>{props.favoriteMovieDate}</span>
         </section>
@@ -54,7 +54,7 @@ const HomePage = (props) => {
         <section className='border-0'>
           <ul className='row justify-content-evenly mx-auto'>
             <li className= {`col-6 col-md-5 col-xl-4 row justify-content-center rounded rounded-4 bg-white friendClick ${props.friendId}`} onClick={props.onClickFriend} id={props.friendId} key={props.friendId}>
-              <img className={`img-fluid ${props.friendId}`} alt="loading..." src={props.friendPic} />
+              <img className={`img-fluid ${props.friendId}`} alt={props.friendName} src={props.friendPic} />
               <span className={`text-capitalize fst-italic fw-semibold ${props.friendId}`}>{props.friendName}</span>
             </li>
           </ul>
@@ -88,7 +88,7 @@ const HomePage = (props) => {
               
               <li  onPointerEnter={props.onPointerEnter} onPointerLeave={props.onPointerLeave} className='col-6 col-lg-4 col-xxl-3 row gy-1 justify-content-center text-center' key={item["movie_id"]}>
                 <button onClick={props.onClickRemove} className='removeBtn col-lg-6' id={item["movie_id"]} >Remove</button>
-                <img className='col-9 img-fluid recImg' src={item['movie_img']}/>
+                <img className='col-9 img-fluid recImg' alt={item['movie_title']} src={item['movie_img']}/>
                 <span className='' >{item['movie_title']}</span>
                 <span className=''>{item['movie_date']}</span>
               </li>)

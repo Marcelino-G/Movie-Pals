@@ -70,7 +70,7 @@ const Parent = () => {
           throw new Error(json['errorMessage'])
 
         } else if(json['errorMessage'] === 'Server busy'){
-          navigate("./home")
+          navigate("/home")
           throw new Error(`${json['errorMessage']}. Try again in a few minutes.`)
 
         } else if(json['expression'] === null){

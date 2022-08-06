@@ -25,12 +25,12 @@ const FriendsPage = (props) => {
           <h2 className='row'>
             <span className='text-capitalize fst-italic fw-semibold'>{props.viewingUserName}</span>
           </h2>
-          <img id='profile_picDisplayed' className='border border-2 img-fluid pb-2 rounded-circle' alt="loading..." src={props.viewingUserImg}/>
+          <img id='profile_picDisplayed' className='border border-2 img-fluid pb-2 rounded-circle' alt={props.viewingUserName} src={props.viewingUserImg}/>
         </div>
 
         <section className='col-4 col-md-5 col-lg-5 col-xxl-4 row justify-content-start p-4 fw-semibold border-0 bg-white'>
           <p className='col-8' >Favorite Movie</p>
-          <img id = "userFavoriteMovieDisplayed" className="col-8 img-fluid" alt="Loading..." src={props.viewingUserFavoriteMovieImage} />
+          <img id = "userFavoriteMovieDisplayed" className="col-8 img-fluid" alt={props.viewingUserFavoriteMovieTitle} src={props.viewingUserFavoriteMovieImage} />
           <span className='col-8 '>{props.viewingUserFavoriteMovieTitle}</span>
           <span className='col-8'>{props.viewingUserFavoriteMovieDate}</span>
         </section>
@@ -43,7 +43,7 @@ const FriendsPage = (props) => {
             {props.viewingUsersFriends.map((friend) => (
 
                 <li className={`col-6 col-md-5 col-xl-4 row justify-content-center rounded rounded-4 bg-white friendClick ${friend[0].id}`} onClick={props.onClickFriend} id={friend[0].id} key={friend[0].id}>
-                  <img className={`img-fluid ${friend[0].id}`} alt="loading..." src={friend[0]['profile_picture']} />
+                  <img className={`img-fluid ${friend[0].id}`} alt={friend[0]['user_name']} src={friend[0]['profile_picture']} />
                   <span className={`text-capitalize fst-italic fw-semibold ${friend[0].id}`} >{friend[0]['user_name']}</span>
                 </li>)
               )}
@@ -63,7 +63,7 @@ const FriendsPage = (props) => {
             {props.viewingUserRecommends.map((item) => (
               
               <li className='col-6 col-lg-4 col-xxl-3 row gy-1 justify-content-center text-center' key={item["movie_id"]}>
-                <img className='col-9 img-fluid recImg' src={item['movie_img']}/>
+                <img className='col-9 img-fluid recImg' alt={item['movie_title']} src={item['movie_img']}/>
                 <span className='' >{item['movie_title']}</span>
                 <span className=''>{item['movie_date']}</span>
               </li>)
