@@ -4,7 +4,7 @@
 Movie Pals is an idea for a social media platform that revolves around movies. With Movie Pals, you are able to create an account that will allow you to share the movies you love with friends by displaying your own customized movie list on your profile. You are also able to view your friends favorite movies by exploring their profile.
 
 ## Why
-This was made to practice and showcase the capabilities of React's "State" and "Effect" Hooks.
+This was made to practice and showcase the capabilities of React's "State" and "Effect" Hooks that are highly dependent on the user's input and fetched data.
 
 ## Sources
 - This project is dependent on fetching data from IMDb's API (https://imdb-api.com/). All movie related content that is displayed (movie posters, movie titles, and movie year dates) is provided by IMDb's API. 
