@@ -2,6 +2,7 @@
 
 ## What
 Movie Pals is an idea for a social media platform that revolves around movies. With Movie Pals, you are able to create an account that will allow you to share the movies you love with friends by displaying your own customized movie list on your profile. You are also able to view your friends favorite movies by exploring their profile.
+- Made with Reactjs
 
 ## Why
 - To practice the use of React's props and hooks (state and effect) that rely heavily on the user's input and fetched data.  
