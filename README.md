@@ -31,6 +31,9 @@ In order for you to experience this project, you must create a **FREE** account 
 ## Site
 https://marcelino-g.github.io/Movie-Pals/
 
+## Video demonstration
+https://youtu.be/CFKndjTbTYM
+
 ## Page Description
 - Desktop View
 
