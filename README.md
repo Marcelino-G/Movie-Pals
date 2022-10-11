@@ -27,6 +27,7 @@ In order for you to experience this project, you must create a **FREE** account 
 - The layout is not friendly to the mobile user.
 - So far, the web browsers that work are Microsoft Edge and Google Chrome.
 - Please let me know of any types of bugs you encounter.
+- ** IF THE SITE APPEARS BLANK AT FIRST, REFRESH **
 
 ## Site
 https://marcelino-g.github.io/Movie-Pals/
