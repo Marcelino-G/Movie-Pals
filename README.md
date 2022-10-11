@@ -32,7 +32,7 @@ In order for you to experience this project, you must create a **FREE** account 
 https://marcelino-g.github.io/Movie-Pals/
 
 ## Video demonstration
-https://youtu.be/CFKndjTbTYM
+https://youtu.be/ifuHFaJei1Q
 
 ## Page Description
 - Desktop View
