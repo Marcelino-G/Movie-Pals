@@ -29,8 +29,7 @@ In order for you to experience this project, you must create a **FREE** account 
 - Please let me know of any types of bugs you encounter.
 - ***IF THE SITE APPEARS BLANK AT FIRST, REFRESH***
 
-## Site
-https://marcelino-g.github.io/Movie-Pals/
+
 
 ## Video demonstration
 https://youtu.be/ifuHFaJei1Q
